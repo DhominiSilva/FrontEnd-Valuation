@@ -1,0 +1,161 @@
+*{
+    padding: 0;
+    margin: 0%;
+    box-sizing: border-box; /*ver para que ele serve*/
+}
+
+body{
+    background-color: rgba(184, 184, 241, 0.603);
+    width: 100vw;
+    height: 100vh;
+}
+
+#cabecalho{
+    text-align: center;
+    color: blue;
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 1%;
+}
+
+#cabecalho strong{
+    color: rgb(100, 99, 99);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+#container{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+#conteudo-principal{
+    display: flex;
+    width: 90%;
+    margin: auto;
+}
+
+#coluna-esquerda{
+    width: 30%;
+    margin: 0 1% 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1%;
+}
+
+#premissas{
+    background-color: chocolate;
+    display: flex;
+    flex-direction: column;
+}
+
+#projecao{
+    display: flex;
+    flex-direction: column;
+    background-color: beige;
+}
+
+#coluna-direita{
+    width: 70%;
+}
+
+#fcd{
+    display: flex;
+    flex-direction: column;
+    background-color: aqua;
+    height: 100%;
+}
+
+#fcd h2{
+    padding: 1%;
+}
+
+th{
+    text-align: left;
+}
+
+table{
+    padding: 1%;
+}
+
+h2{
+    border-radius: 0.5rem;
+    padding: 2%;
+}
+
+.simbolo-real{
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.editavel{
+    background-color: rgb(161, 161, 161);
+}
+
+.simbolo-real span{
+    padding: 0 6px;
+}
+
+.simbolo-real input {
+    border: none;
+    outline: none;
+    /*background: transparent;*/
+}
+
+.campo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.campo label{
+    font-size: 1.2rem;
+    font-weight: 500;
+    width: 70%;
+}
+
+.campo input{
+    width: 30%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.input-pequeno{
+    margin: 1.5%;
+    width: 15%;
+}
+
+.input-grande{
+    margin: 1.5%;
+    width: 10%; /*ajustar conforme necessário*/
+}
+
+#anotacoes{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: auto;
+    background-color: darkslateblue;
+}
+
+#anotacoes h2{
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+#anotacoes textarea{
+    width: 95%;
+    height: 15vh;
+    margin-top: 1%;
+    padding: 1%;
+    font-size: 1rem;
+    margin: auto;
+    border-radius: 0.6rem;
+    margin-bottom: 2rem; /* espaço embaixo */
+}

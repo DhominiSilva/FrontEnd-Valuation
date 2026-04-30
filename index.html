@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preço teto</title>
+    <link rel="stylesheet" href="index.css">
+
+</head>
+<body>
+
+    <div id="cabecalho">FCD <strong>| Valuation de Fluxo de Caixa</strong></div>
+    <div id="container">
+        <div id="conteudo-principal">
+            <div id="coluna-esquerda">
+                <div id="premissas">
+                    <h2>Premissas</h2> <hr>
+                    
+                    <div class="campo">
+                        <label for="payout">Payout médio(%)</label>
+                        <input type="number" class="input-pequeno">
+                    </div>
+                    
+                    <div class="campo">
+                        <label>ROE(%)</label>
+                        <input type="number" class="input-pequeno">
+                    </div>
+                    
+                    <div class="campo">
+                        <label>Taxa de Crescimento Esperada(%)</label>
+                        <input type="number" class="input-pequeno">
+                    </div>
+
+                    <div class="campo">
+                        <label>Taxa de desconto(%)</label>
+                        <input type="number" class="input-pequeno">
+                    </div>
+                </div>
+                
+                <div id="projecao">
+                    <h2>Realidade projetada</h2> <hr>
+                    
+                    <div class="campo">
+                        <label>Market cap</label>
+                        <input type="number" class="input-grande" disabled>
+                    </div>
+                    
+                    <div class="campo">
+                        <label>Nº ações ex-tesouraria</label>
+                        <div class="simbolo-real editavel">
+                            <span>R$</span>
+                            <input type="number" class="input-grande">
+                        </div>                   
+                    </div>
+                    
+                    <div class="campo">
+                        <label>Preço da ação</label>
+                        <div class="simbolo-real editavel">
+                            <span>R$</span>
+                            <input type="number" class="input-pequeno">
+                        </div>
+                    </div>
+
+                    <div class="campo">
+                        <label>Preço por ação</label>
+                        <input type="number" class="input-pequeno" disabled>
+                    </div>
+
+                    <div class="campo">
+                        <label>Margem de segurança</label>
+                        <input type="number" class="input-pequeno" disabled>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="coluna-direita">
+                <div id="fcd">
+                    
+                    <h2>Fluxo de Caixa Descontado</h2> <hr>
+                    
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>ANO</th>
+                                <th>LUCRO LÍQUIDO</th>
+                                <th>CRESCIMENTO</th>
+                                <th>VPL</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>2025</td>
+                                <td>
+                                    <div class="simbolo-real editavel">
+                                        <span>R$</span>
+                                        <input type="number" class="input-grande">
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="number" class="input-pequeno">
+                                </td>
+                                <td>-</td>
+                            </tr>
+
+                            <tr>
+                                <td>2026</td>
+                                <td>
+                                    <div class="simbolo-real editavel">
+                                        <span>R$</span>
+                                        <input type="number" class="input-grande">
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="number" class="input-pequeno">
+                                </td>
+                                <td>
+                                    <input type="number" class="input-grande">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>2027</td>
+                                <td>
+                                    <div class="simbolo-real">
+                                        <span>R$</span>
+                                        <input type="number" class="input-grande" disabled>
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="number" class="input-pequeno">
+                                </td>
+                                <td>
+                                    <input type="number" class="input-grande">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>2028</td>
+                                <td>
+                                    <div class="simbolo-real">
+                                        <span>R$</span>
+                                        <input type="number" class="input-grande" disabled>
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="number" class="input-pequeno">
+                                </td>
+                                <td>
+                                    <input type="number" class="input-grande">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Perpétuo</td>
+                                <td>
+                                    <div class="simbolo-real">
+                                        <span>R$</span>
+                                        <input type="number" class="input-grande" disabled>
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="number" class="input-pequeno">
+                                </td>
+                                <td>
+                                    <input type="number" class="input-grande">
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div id="anotacoes">
+            <h2>Anotações</h2>
+            <textarea placeholder="Escreva suas observações aqui... (salva junto com o preço teto)"></textarea>
+        </div>
+
+    </div>
+    
+</body>
+</html>
