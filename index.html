@@ -17,23 +17,31 @@
                     <h2>Premissas</h2> <hr>
                     
                     <div class="campo">
-                        <label for="payout">Payout médio(%)</label>
-                        <input type="number" class="input-pequeno">
+                        <label>Payout médio(%)</label>
+                        <div class="campo-input-pequeno editavel">
+                            <input type="number" class="input-pequeno">
+                        </div> 
                     </div>
                     
                     <div class="campo">
                         <label>ROE(%)</label>
-                        <input type="number" class="input-pequeno">
+                        <div class="campo-input-pequeno">
+                            <input type="number" class="input-pequeno" disabled>
+                        </div>
                     </div>
                     
                     <div class="campo">
                         <label>Taxa de Crescimento Esperada(%)</label>
-                        <input type="number" class="input-pequeno">
+                        <div class="campo-input-pequeno">
+                            <input type="number" class="input-pequeno" disabled>
+                        </div>
                     </div>
 
                     <div class="campo">
                         <label>Taxa de desconto(%)</label>
-                        <input type="number" class="input-pequeno">
+                        <div class="campo-input-pequeno">
+                            <input type="number" class="input-pequeno" disabled>
+                        </div>
                     </div>
                 </div>
                 
@@ -42,20 +50,22 @@
                     
                     <div class="campo">
                         <label>Market cap</label>
-                        <input type="number" class="input-grande" disabled>
+                        <div class="campo-input">
+                            <span>R$</span>
+                            <input type="number" class="input-grande" disabled>
+                        </div> 
                     </div>
                     
                     <div class="campo">
                         <label>Nº ações ex-tesouraria</label>
-                        <div class="simbolo-real editavel">
-                            <span>R$</span>
+                        <div class="editavel campo-input">
                             <input type="number" class="input-grande">
                         </div>                   
                     </div>
                     
                     <div class="campo">
                         <label>Preço da ação</label>
-                        <div class="simbolo-real editavel">
+                        <div class="editavel campo-input">
                             <span>R$</span>
                             <input type="number" class="input-pequeno">
                         </div>
@@ -63,12 +73,17 @@
 
                     <div class="campo">
                         <label>Preço por ação</label>
-                        <input type="number" class="input-pequeno" disabled>
+                        <div class="campo-input">
+                            <span>R$</span>
+                            <input type="number" class="input-pequeno" disabled>
+                        </div>
                     </div>
 
                     <div class="campo">
                         <label>Margem de segurança</label>
-                        <input type="number" class="input-pequeno" disabled>
+                        <div class="campo-input">
+                            <input type="number" class="input-pequeno" disabled>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -93,13 +108,15 @@
                             <tr>
                                 <td>2025</td>
                                 <td>
-                                    <div class="simbolo-real editavel">
+                                    <div class="editavel campo-input">
                                         <span>R$</span>
                                         <input type="number" class="input-grande">
                                     </div>
                                 </td>
                                 <td>
-                                    <input type="number" class="input-pequeno">
+                                    <div class="campo-input-pequeno editavel">
+                                        <input type="number" class="input-pequeno">
+                                    </div>
                                 </td>
                                 <td>-</td>
                             </tr>
@@ -107,64 +124,72 @@
                             <tr>
                                 <td>2026</td>
                                 <td>
-                                    <div class="simbolo-real editavel">
+                                    <div class="editavel campo-input">
                                         <span>R$</span>
                                         <input type="number" class="input-grande">
                                     </div>
                                 </td>
                                 <td>
-                                    <input type="number" class="input-pequeno">
+                                    <div class="campo-input-pequeno editavel">
+                                        <input type="number" class="input-pequeno">
+                                    </div>
                                 </td>
                                 <td>
-                                    <input type="number" class="input-grande">
+                                    <input type="number" class="input-grande" disabled>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td>2027</td>
                                 <td>
-                                    <div class="simbolo-real">
+                                    <div class="campo-input">
                                         <span>R$</span>
                                         <input type="number" class="input-grande" disabled>
                                     </div>
                                 </td>
                                 <td>
-                                    <input type="number" class="input-pequeno">
+                                    <div class="campo-input-pequeno editavel">
+                                        <input type="number" class="input-pequeno">
+                                    </div>
                                 </td>
                                 <td>
-                                    <input type="number" class="input-grande">
+                                    <input type="number" class="input-grande" disabled>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td>2028</td>
                                 <td>
-                                    <div class="simbolo-real">
+                                    <div class="campo-input">
                                         <span>R$</span>
                                         <input type="number" class="input-grande" disabled>
                                     </div>
                                 </td>
                                 <td>
-                                    <input type="number" class="input-pequeno">
+                                    <div class="campo-input-pequeno editavel">
+                                        <input type="number" class="input-pequeno">
+                                    </div>
                                 </td>
                                 <td>
-                                    <input type="number" class="input-grande">
+                                    <input type="number" class="input-grande" disabled>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td>Perpétuo</td>
                                 <td>
-                                    <div class="simbolo-real">
+                                    <div class="campo-input">
                                         <span>R$</span>
                                         <input type="number" class="input-grande" disabled>
                                     </div>
                                 </td>
                                 <td>
-                                    <input type="number" class="input-pequeno">
+                                    <div class="campo-input-pequeno editavel">
+                                        <input type="number" class="input-pequeno">
+                                    </div>
                                 </td>
                                 <td>
-                                    <input type="number" class="input-grande">
+                                    <input type="number" class="input-grande" disabled>
                                 </td>
                             </tr>
                         </tbody>

@@ -45,7 +45,7 @@ body{
 }
 
 #premissas{
-    background-color: chocolate;
+    background-color: rgb(241, 176, 130);
     display: flex;
     flex-direction: column;
 }
@@ -84,55 +84,59 @@ h2{
     padding: 2%;
 }
 
-.simbolo-real{
+.campo-input-pequeno{
+    width: 15%;
+}
+
+.campo-input-pequeno input{
+    width: 100%;
+    padding: 1%;
+}
+
+.campo-input{
+    padding: 0.5%;
+    width: 70%;
     display: flex;
-    align-items: center;
-    border-radius: 4px;
+    justify-content: right;
 }
 
-.editavel{
-    background-color: rgb(161, 161, 161);
+.campo-input input{
+    width: 100%;
+    text-align: right;
+    margin: 2%;
 }
 
-.simbolo-real span{
-    padding: 0 6px;
-}
-
-.simbolo-real input {
+input {
     border: none;
     outline: none;
-    /*background: transparent;*/
+    background: transparent;
 }
 
 .campo{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 1%;
 }
 
 .campo label{
     font-size: 1.2rem;
     font-weight: 500;
-    width: 70%;
+    width: 80%;
 }
 
-.campo input{
-    width: 30%;
+.editavel{
+    background-color: rgb(197, 197, 197);
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
-}
+} /*Olhar para ver se realmente está ajudando, serve para remover as setas do input do tipo number*/
 
 .input-pequeno{
     margin: 1.5%;
-    width: 15%;
-}
-
-.input-grande{
-    margin: 1.5%;
-    width: 10%; /*ajustar conforme necessário*/
+    width: 25%;
 }
 
 #anotacoes{
