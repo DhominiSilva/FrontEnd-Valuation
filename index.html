@@ -19,28 +19,28 @@
                     <div class="campo">
                         <label>Payout médio(%)</label>
                         <div class="campo-input-pequeno editavel">
-                            <input type="number" class="input-pequeno">
+                            <input type="number" class="input-pequeno" id="payout">
                         </div> 
                     </div>
                     
                     <div class="campo">
                         <label>ROE(%)</label>
                         <div class="campo-input-pequeno">
-                            <input type="number" class="input-pequeno" disabled>
+                            <input type="number" class="input-pequeno" id="roe" disabled>
                         </div>
                     </div>
                     
                     <div class="campo">
                         <label>Taxa de Crescimento Esperada(%)</label>
                         <div class="campo-input-pequeno">
-                            <input type="number" class="input-pequeno" disabled>
+                            <input type="number" class="input-pequeno" id="crescimento-esperado">
                         </div>
                     </div>
 
                     <div class="campo">
                         <label>Taxa de desconto(%)</label>
                         <div class="campo-input-pequeno">
-                            <input type="number" class="input-pequeno" disabled>
+                            <input type="number" class="input-pequeno" id="taxa-desconto">
                         </div>
                     </div>
                 </div>
@@ -52,14 +52,14 @@
                         <label>Market cap</label>
                         <div class="campo-input">
                             <span>R$</span>
-                            <input type="number" class="input-grande" disabled>
+                            <input type="number" class="input-grande" id="market-cap" disabled>
                         </div> 
                     </div>
                     
                     <div class="campo">
                         <label>Nº ações ex-tesouraria</label>
                         <div class="editavel campo-input">
-                            <input type="number" class="input-grande">
+                            <input type="number" class="input-grande" id="ex-tesouraria">
                         </div>                   
                     </div>
                     
@@ -67,7 +67,7 @@
                         <label>Preço da ação</label>
                         <div class="editavel campo-input">
                             <span>R$</span>
-                            <input type="number" class="input-pequeno">
+                            <input type="number" class="input-pequeno" id="preco-acao">
                         </div>
                     </div>
 
@@ -75,14 +75,14 @@
                         <label>Preço por ação</label>
                         <div class="campo-input">
                             <span>R$</span>
-                            <input type="number" class="input-pequeno" disabled>
+                            <input type="number" class="input-pequeno" id="preco-por-acao" disabled>
                         </div>
                     </div>
 
                     <div class="campo">
                         <label>Margem de segurança</label>
                         <div class="campo-input">
-                            <input type="number" class="input-pequeno" disabled>
+                            <input type="number" class="input-pequeno" id="margem-seguranca" disabled>
                         </div>
                     </div>
                 </div>
@@ -110,12 +110,12 @@
                                 <td>
                                     <div class="editavel campo-input">
                                         <span>R$</span>
-                                        <input type="number" class="input-grande">
+                                        <input type="number" class="input-grande" id="ll-2025">
                                     </div>
                                 </td>
                                 <td>
                                     <div class="campo-input-pequeno editavel">
-                                        <input type="number" class="input-pequeno">
+                                        <input type="number" class="input-pequeno" disabled>
                                     </div>
                                 </td>
                                 <td>-</td>
@@ -126,16 +126,16 @@
                                 <td>
                                     <div class="editavel campo-input">
                                         <span>R$</span>
-                                        <input type="number" class="input-grande">
+                                        <input type="number" class="input-grande" id="ll-2026">
                                     </div>
                                 </td>
                                 <td>
                                     <div class="campo-input-pequeno editavel">
-                                        <input type="number" class="input-pequeno">
+                                        <input type="number" class="input-pequeno" id="crescimento-2026">
                                     </div>
                                 </td>
                                 <td>
-                                    <input type="number" class="input-grande" disabled>
+                                    <input type="number" class="input-grande" id="vpl-2026" disabled>
                                 </td>
                             </tr>
 
@@ -144,16 +144,16 @@
                                 <td>
                                     <div class="campo-input">
                                         <span>R$</span>
-                                        <input type="number" class="input-grande" disabled>
+                                        <input type="number" class="input-grande" id="ll-2027" disabled>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="campo-input-pequeno editavel">
-                                        <input type="number" class="input-pequeno">
+                                        <input type="number" class="input-pequeno" id="crescimento-2027">
                                     </div>
                                 </td>
                                 <td>
-                                    <input type="number" class="input-grande" disabled>
+                                    <input type="number" class="input-grande" id="vpl-2027" disabled>
                                 </td>
                             </tr>
 
@@ -162,16 +162,16 @@
                                 <td>
                                     <div class="campo-input">
                                         <span>R$</span>
-                                        <input type="number" class="input-grande" disabled>
+                                        <input type="number" class="input-grande" id="ll-2028" disabled>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="campo-input-pequeno editavel">
-                                        <input type="number" class="input-pequeno">
+                                        <input type="number" class="input-pequeno" id="crescimento-2028">
                                     </div>
                                 </td>
                                 <td>
-                                    <input type="number" class="input-grande" disabled>
+                                    <input type="number" class="input-grande" id="vpl-2028" disabled>
                                 </td>
                             </tr>
 
@@ -180,16 +180,16 @@
                                 <td>
                                     <div class="campo-input">
                                         <span>R$</span>
-                                        <input type="number" class="input-grande" disabled>
+                                        <input type="number" class="input-grande" id="ll-perpetuo" disabled>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="campo-input-pequeno editavel">
-                                        <input type="number" class="input-pequeno">
+                                        <input type="number" class="input-pequeno" id="crescimento-perpetuo">
                                     </div>
                                 </td>
                                 <td>
-                                    <input type="number" class="input-grande" disabled>
+                                    <input type="number" class="input-grande" id="vpl-perpetuo" disabled>
                                 </td>
                             </tr>
                         </tbody>
@@ -202,7 +202,7 @@
 
         <div id="anotacoes">
             <h2>Anotações</h2>
-            <textarea placeholder="Escreva suas observações aqui... (salva junto com o preço teto)"></textarea>
+            <textarea placeholder="Escreva suas observações aqui... (salva junto com o preço teto)" id="texto-anotacoes"></textarea>
         </div>
 
     </div>

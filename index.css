@@ -137,6 +137,7 @@ input::-webkit-inner-spin-button {
 .input-pequeno{
     margin: 1.5%;
     width: 25%;
+    background-color: seagreen;
 }
 
 #anotacoes{
