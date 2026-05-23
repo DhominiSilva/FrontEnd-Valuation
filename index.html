@@ -19,7 +19,7 @@
                     <div class="campo">
                         <label>Payout médio(%)</label>
                         <div class="campo-input-pequeno editavel">
-                            <input type="number" class="input-pequeno" id="payout">
+                            <input type="number" class="input-pequeno" id="payout" oninput="calcular()">
                         </div> 
                     </div>
                     
@@ -33,14 +33,14 @@
                     <div class="campo">
                         <label>Taxa de Crescimento Esperada(%)</label>
                         <div class="campo-input-pequeno">
-                            <input type="number" class="input-pequeno" id="crescimento-esperado">
+                            <input type="number" class="input-pequeno" id="crescimento-esperado" oninput="calcular()">
                         </div>
                     </div>
 
                     <div class="campo">
                         <label>Taxa de desconto(%)</label>
                         <div class="campo-input-pequeno">
-                            <input type="number" class="input-pequeno" id="taxa-desconto">
+                            <input type="number" class="input-pequeno" id="taxa-desconto" oninput="calcular()">
                         </div>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                     <div class="campo">
                         <label>Nº ações ex-tesouraria</label>
                         <div class="editavel campo-input">
-                            <input type="number" class="input-grande" id="ex-tesouraria">
+                            <input type="number" class="input-grande" id="ex-tesouraria" oninput="calcular()">
                         </div>                   
                     </div>
 
@@ -67,7 +67,7 @@
                         <label>Patrimônio Líquido</label>
                         <div class="editavel campo-input">
                             <span>R$</span>
-                            <input type="number" class="input-grande" id="patrimonio-liquido">
+                            <input type="number" class="input-grande" id="patrimonio-liquido" oninput="calcular()">
                         </div>                   
                     </div>
                     
@@ -75,7 +75,7 @@
                         <label>Preço da ação</label>
                         <div class="editavel campo-input">
                             <span>R$</span>
-                            <input type="number" class="input-pequeno" id="preco-acao">
+                            <input type="number" class="input-pequeno" id="preco-acao" oninput="calcular()">
                         </div>
                     </div>
 
@@ -118,7 +118,7 @@
                                 <td>
                                     <div class="editavel campo-input">
                                         <span>R$</span>
-                                        <input type="number" class="input-grande" id="ll-2025">
+                                        <input type="number" class="input-grande" id="ll-2025" oninput="calcular()">
                                     </div>
                                 </td>
                                 <td>
@@ -134,12 +134,12 @@
                                 <td>
                                     <div class="editavel campo-input">
                                         <span>R$</span>
-                                        <input type="number" class="input-grande" id="ll-2026">
+                                        <input type="number" class="input-grande" id="ll-2026" oninput="calcular()">
                                     </div>
                                 </td>
                                 <td>
                                     <div class="campo-input-pequeno editavel">
-                                        <input type="number" class="input-pequeno" id="crescimento-2026">
+                                        <input type="number" class="input-pequeno" id="crescimento-2026" oninput="calcular()">
                                     </div>
                                 </td>
                                 <td>
@@ -157,7 +157,7 @@
                                 </td>
                                 <td>
                                     <div class="campo-input-pequeno editavel">
-                                        <input type="number" class="input-pequeno" id="crescimento-2027">
+                                        <input type="number" class="input-pequeno" id="crescimento-2027" oninput="calcular()">
                                     </div>
                                 </td>
                                 <td>
@@ -175,7 +175,7 @@
                                 </td>
                                 <td>
                                     <div class="campo-input-pequeno editavel">
-                                        <input type="number" class="input-pequeno" id="crescimento-2028">
+                                        <input type="number" class="input-pequeno" id="crescimento-2028" oninput="calcular()">
                                     </div>
                                 </td>
                                 <td>
@@ -193,7 +193,7 @@
                                 </td>
                                 <td>
                                     <div class="campo-input-pequeno editavel">
-                                        <input type="number" class="input-pequeno" id="crescimento-perpetuo">
+                                        <input type="number" class="input-pequeno" id="crescimento-perpetuo" oninput="calcular()">
                                     </div>
                                 </td>
                                 <td>
@@ -215,5 +215,6 @@
 
     </div>
     
+    <script src="index.js"></script>
 </body>
 </html>
