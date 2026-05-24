@@ -109,6 +109,7 @@ table{
     padding: 0.5%;
     width: 70%;
     display: flex;
+    align-items: center;
     justify-content: right;
 }
 
@@ -132,8 +133,9 @@ input {
 }
 
 .campo label{
-    font-size: 1.2rem;
-    font-weight: 500;
+    color: rgb(235, 231, 231);
+    font-size: 1.1rem;
+    font-weight: 600;
     width: 80%;
 }
 
@@ -169,14 +171,15 @@ input::-webkit-inner-spin-button {
 #anotacoes textarea{
     width: 98%;
     height: 15vh;
-    margin-top: 1%;
     padding: 1%;
-    font-size: 1rem;
     margin: auto;
     margin-top: 1%;
     margin-bottom: 1%;
     border-radius: 0.6rem;
-    resize: none;
+    font-size: 1rem;
+    background-color: rgb(222, 222, 222);
+    resize: none; /* remove a opção de redimensionar o textarea */
+    outline: none; /* remove a borda azul que aparece ao clicar no textarea */
 }
 
 textarea, input {
