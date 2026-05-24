@@ -4,8 +4,13 @@
     box-sizing: border-box; /*ver para que ele serve*/
 }
 
+:root{
+    --cor-fundo: rgb(197, 174, 143);
+    --cor-titulo: #2d4970;
+}
+
 body{
-    background-color: rgba(184, 184, 241, 0.603);
+    background-color: #6f3a0b;
     width: 100vw;
     height: 100vh;
 }
@@ -45,7 +50,7 @@ body{
 }
 
 #premissas{
-    background-color: rgb(241, 176, 130);
+    background-color: var(--cor-fundo);
     display: flex;
     flex-direction: column;
 }
@@ -53,7 +58,7 @@ body{
 #projecao{
     display: flex;
     flex-direction: column;
-    background-color: beige;
+    background-color: var(--cor-fundo);
 }
 
 #coluna-direita{
@@ -63,12 +68,13 @@ body{
 #fcd{
     display: flex;
     flex-direction: column;
-    background-color: aqua;
+    background-color: var(--cor-fundo);
     height: 100%;
 }
 
 #fcd h2{
     padding: 1%;
+    background-color: var(--cor-titulo);
 }
 
 th{
@@ -80,6 +86,7 @@ table{
 }
 
 h2{
+    background-color: var(--cor-titulo);
     border-radius: 0.5rem;
     padding: 2%;
 }
@@ -145,10 +152,11 @@ input::-webkit-inner-spin-button {
     flex-direction: column;
     width: 90%;
     margin: auto;
-    background-color: darkslateblue;
+    background-color: var(--cor-fundo);
 }
 
 #anotacoes h2{
+    background-color: var(--cor-titulo);
     text-align: center;
     font-size: 1.5rem;
     font-weight: 600;
