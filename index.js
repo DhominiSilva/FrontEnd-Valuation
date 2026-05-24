@@ -2,14 +2,17 @@ let crescimentoAlterado = {2027: false,2028: false,perpetuo: false}; // estou cr
 
 document.getElementById('crescimento-2027').oninput = function() {
     crescimentoAlterado[2027] = true
+    calcular(); // estou chamando a função calcular() toda vez que o usuário alterar o valor da taxa de crescimento de 2027, para que os valores sejam recalculados automaticamente
 }
     
 document.getElementById('crescimento-2028').oninput = function() {
     crescimentoAlterado[2028] = true
+    calcular(); 
 }
 
 document.getElementById('crescimento-perpetuo').oninput = function() {
     crescimentoAlterado['perpetuo'] = true
+    calcular();
 }
 
 function calcular(){
@@ -50,8 +53,8 @@ function calcular(){
 
     // Calcular 2028
         // Calcular ll2028
-    if (!crescimentoAlterado[2027]) {
-        document.getElementById('crescimento-2027').value = crescimentoEsperado.toFixed(2); 
+    if (!crescimentoAlterado[2028]) {
+        document.getElementById('crescimento-2028').value = crescimentoEsperado.toFixed(2); 
     }
     const crescimento2028 = document.getElementById('crescimento-2028').value;
     const ll2028 = ll2027 * (1 + (crescimento2028 / 100));
@@ -64,7 +67,7 @@ function calcular(){
     // Calcular perpétuo
         // Calcular ll perpétuo
     if (!crescimentoAlterado['perpetuo']) {
-        document.getElementById('crescimento-perpetuo').value = crescimentoEsperado.toFixed(2);
+        document.getElementById('crescimento-perpetuo').value = 3.00;
     }
     const crescimentoPerpetuo = document.getElementById('crescimento-perpetuo').value;
     const llPerpetuo = ll2028 * (1 + (crescimentoPerpetuo / 100)) / ((taxaDesconto / 100) - (crescimentoPerpetuo / 100));
@@ -92,5 +95,3 @@ function calcular(){
     document.getElementById('margem-seguranca').value = margemSeguranca.toFixed(2);
 
 }
-
-// PRECISO FAZER COM QUE ASSIM QUE O USUARIO ALTERE O VALOR DE CRESCIMENTO DE 2027, 2028 OU PERPÉTUIDADE O VALOR DE TUDO SEJA CALCULADO NO MESMO INSTANTE
