@@ -10,6 +10,7 @@
     --cor-fonte-titulo: white;
     --borda-superior: 0.5rem 0.5rem 0 0;
     --borda-total: 0.5rem;
+    --borda-input: 0.2rem;
 }
 
 img {
@@ -141,7 +142,7 @@ input {
 
 .editavel{
     background-color: rgb(139, 169, 157);
-    border-radius: var(--borda-total);
+    border-radius: var(--borda-input);
 }
 
 input::-webkit-outer-spin-button,
