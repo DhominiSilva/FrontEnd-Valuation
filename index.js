@@ -25,6 +25,34 @@ function camposValidos() {
     return campos.every(id => !isNaN(limparFormatacao(id)))
 }
 
+// assim que o usuario carregar a página, todos inputs começam com o valor 0
+window.onload = function() {
+    calcular() // chama calcular para já preencher os campos automáticos com 0
+    document.getElementById('payout').value = 0
+    document.getElementById('taxa-desconto').value = 0
+    document.getElementById('ex-tesouraria').value = 0
+    document.getElementById('patrimonio-liquido').value = 0
+    document.getElementById('preco-acao').value = 0
+    document.getElementById('ll-2025').value = 0
+    document.getElementById('ll-2026').value = 0
+    document.getElementById('market-cap').value = 0
+    document.getElementById('preco-por-acao').value = 0
+    document.getElementById('margem-seguranca').value = 0
+    document.getElementById('vpl-2026').value = 0
+    document.getElementById('vpl-2027').value = 0
+    document.getElementById('vpl-2028').value = 0
+    document.getElementById('vpl-perpetuo').value = 0
+    document.getElementById('ll-2027').value = 0
+    document.getElementById('ll-2028').value = 0
+    document.getElementById('ll-perpetuo').value = 0
+    document.getElementById('crescimento-2026').value = 0
+    document.getElementById('crescimento-2027').value = 0
+    document.getElementById('crescimento-2028').value = 0
+    document.getElementById('crescimento-perpetuo').value = 3
+    document.getElementById('roe').value = 0
+    document.getElementById('crescimento-esperado').value = 0
+}
+
 function formatarMoeda(id) {
     const apenasNumeros = document.getElementById(id).value.replace(/[^0-9.,]/g, ''); // estou pegando o valor do input com o id passado como parâmetro, removendo tudo que não for número, ponto ou vírgula
     const valorFormatado = new Intl.NumberFormat('pt-BR', {
