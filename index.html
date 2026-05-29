@@ -21,28 +21,28 @@
                     <div class="campo">
                         <label>Payout médio(%)</label>
                         <div class="campo-input-pequeno editavel">
-                            <input type="text" id="payout" oninput="calcular()" onblur="formatarPorcentagem('payout')">
+                            <input type="text" id="payout" onfocus="limparCampo('payout')" oninput="calcular()" onblur="formatarPorcentagem('payout')">
                         </div> 
                     </div>
 
                     <div class="campo">
                         <label>Taxa de desconto(%)</label>
                         <div class="campo-input-pequeno editavel">
-                            <input type="text" id="taxa-desconto" oninput="calcular()" onblur="formatarPorcentagem('taxa-desconto')">
+                            <input type="text" id="taxa-desconto" onfocus="limparCampo('taxa-desconto')" oninput="calcular()" onblur="formatarPorcentagem('taxa-desconto')">
                         </div>
                     </div>
                     
                     <div class="campo">
                         <label>ROE(%)</label>
                         <div class="campo-input-pequeno editavel">
-                            <input type="text" id="roe" oninput="calcular()" onblur="formatarPorcentagem('roe')">
+                            <input type="text" id="roe" onfocus="limparCampo('roe')" oninput="calcular()" onblur="formatarPorcentagem('roe')">
                         </div>
                     </div>
                     
                     <div class="campo">
                         <label>Taxa de Crescimento Esperada(%)</label>
                         <div class="campo-input-pequeno editavel">
-                            <input type="text" id="crescimento-esperado" oninput="calcular()" onblur="formatarPorcentagem('crescimento-esperado')">
+                            <input type="text" id="crescimento-esperado" onfocus="limparCampo('crescimento-esperado')" oninput="calcular()" onblur="formatarPorcentagem('crescimento-esperado')">
                         </div>
                     </div>
 
@@ -54,7 +54,7 @@
                     <div class="campo">
                         <label>Nº ações ex-tesouraria</label>
                         <div class="editavel campo-input">
-                            <input type="text" id="ex-tesouraria" oninput="calcular()" onblur="formatarValor('ex-tesouraria')">
+                            <input type="text" id="ex-tesouraria" onfocus="limparCampo('ex-tesouraria')" oninput="calcular()" onblur="formatarValor('ex-tesouraria')">
                         </div>                   
                     </div>
 
@@ -62,7 +62,7 @@
                         <label>Patrimônio Líquido</label>
                         <div class="editavel campo-input">
                             <span>R$</span>
-                            <input type="text" id="patrimonio-liquido" oninput="calcular()" onblur="formatarMoeda('patrimonio-liquido')">
+                            <input type="text" id="patrimonio-liquido" onfocus="limparCampo('patrimonio-liquido')" oninput="calcular()" onblur="formatarMoeda('patrimonio-liquido')">
                         </div>                   
                     </div>
                     
@@ -70,7 +70,7 @@
                         <label>Preço da ação</label>
                         <div class="editavel campo-input">
                             <span>R$</span>
-                            <input type="text" id="preco-acao" oninput="calcular()" onblur="formatarMoeda('preco-acao')">
+                            <input type="text" id="preco-acao" onfocus="limparCampo('preco-acao')" oninput="calcular()" onblur="formatarMoeda('preco-acao')">
                         </div>
                     </div>
 
@@ -121,7 +121,7 @@
                                 <td>
                                     <div class="editavel campo-input">
                                         <span>R$</span>
-                                        <input type="text" id="ll-2025" oninput="calcular()" onblur="formatarMoeda('ll-2025')">
+                                        <input type="text" id="ll-2025" onfocus="limparCampo('ll-2025')" oninput="calcular()" onblur="formatarMoeda('ll-2025')">
                                     </div>
                                 </td>
                                 <td>-</td>
@@ -133,12 +133,12 @@
                                 <td>
                                     <div class="editavel campo-input">
                                         <span>R$</span>
-                                        <input type="text" id="ll-2026" oninput="calcular()" onblur="formatarMoeda('ll-2026')">
+                                        <input type="text" id="ll-2026"  onfocus="limparCampo('ll-2026')" oninput="calcular()" onblur="formatarMoeda('ll-2026')">
                                     </div>
                                 </td>
                                 <td>
                                     <div class="campo-input-pequeno editavel">
-                                        <input type="text" id="crescimento-2026" oninput="calcular()" onblur="formatarPorcentagem('crescimento-2026')">
+                                        <input type="text" id="crescimento-2026" onfocus="limparCampo('crescimento-2026')" oninput="calcular()" onblur="formatarPorcentagem('crescimento-2026')">
                                     </div>
                                 </td>
                                 <td>
@@ -156,7 +156,7 @@
                                 </td>
                                 <td>
                                     <div class="campo-input-pequeno editavel">
-                                        <input type="text" id="crescimento-2027" oninput="calcular()" onblur="formatarPorcentagem('crescimento-2027')">
+                                        <input type="text" id="crescimento-2027" onfocus="limparCampo('crescimento-2027')" oninput="calcular()" onblur="formatarPorcentagem('crescimento-2027')">
                                     </div>
                                 </td>
                                 <td>
@@ -174,7 +174,7 @@
                                 </td>
                                 <td>
                                     <div class="campo-input-pequeno editavel">
-                                        <input type="text" id="crescimento-2028" oninput="calcular()" onblur="formatarPorcentagem('crescimento-2028')">
+                                        <input type="text" id="crescimento-2028" onfocus="limparCampo('crescimento-2028')" oninput="calcular()" onblur="formatarPorcentagem('crescimento-2028')">
                                     </div>
                                 </td>
                                 <td>
@@ -192,7 +192,7 @@
                                 </td>
                                 <td>
                                     <div class="campo-input-pequeno editavel">
-                                        <input type="text" id="crescimento-perpetuo" oninput="calcular()" onblur="formatarPorcentagem('crescimento-perpetuo')">
+                                        <input type="text" id="crescimento-perpetuo" onfocus="limparCampo('crescimento-perpetuo')" oninput="calcular()" onblur="formatarPorcentagem('crescimento-perpetuo')">
                                     </div>
                                 </td>
                                 <td>

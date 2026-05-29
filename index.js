@@ -18,7 +18,7 @@ document.getElementById('crescimento-perpetuo').oninput = function() {
 // estou verificando se os campos de entrada são válidos, para evitar que fique aparecendo NaN nos campos automáticos, caso o usuário deixe algum campo vazio ou com um valor inválido, a função camposValidos() retorna false e os campos automáticos ficam com o valor 0
 function camposValidos() {
     const campos = [
-        'payout', 'taxa-desconto', 'roe', 'crescimento-esperado', 'tesouraria', 
+        'payout', 'taxa-desconto', 'roe', 'crescimento-esperado', 'ex-tesouraria', 
         'patrimonio-liquido', 'preco-acao', 'll-2025', 'll-2026', 'crescimento-2026', 
         'crescimento-2027', 'crescimento-2028', 'crescimento-perpetuo'
     ];
@@ -89,6 +89,12 @@ function limparFormatacao(id) {
     const limpo = valor.replace(/[^0-9,]/g, '').replace(',', '.')
     console.log('valor limpo:', limpo)
     return parseFloat(limpo) // estou substituindo a vírgula por ponto para converter o valor para número decimal
+}
+
+// a função limparCampo() é chamada quando o usuário clica em um campo de entrada, para limpar a formatação e deixar apenas o número puro, facilitando a edição do valor pelo usuário
+function limparCampo(id) {
+    const valor = limparFormatacao(id) // pega o número puro
+    document.getElementById(id).value = valor // coloca só o número sem formatação
 }
 
 function calcular(){
