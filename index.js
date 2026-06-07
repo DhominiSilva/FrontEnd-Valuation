@@ -1,8 +1,10 @@
-let crescimentoAlterado = {2027: false,2028: false,perpetuo: false}; // estou criando um objeto para armazenar o estado de alteração das taxas de crescimento de 2027, 2028 e perpétuo
+// Variável para controlar se o usuário alterou as taxas de crescimento, para não sobrescrever os valores caso o usuário queira colocar uma taxa diferente da taxa de crescimento esperada
+let crescimentoAlterado = {2027: false,2028: false,perpetuo: false};
 
+// Eventos de input (oninput) para monitorar alterações manuais nas taxas, quando o usuário digita algo nesses campos, marcamos como 'true' para travar o recálculo automático.
 document.getElementById('crescimento-2027').oninput = function() {
     crescimentoAlterado[2027] = true
-    calcular(); // estou chamando a função calcular() toda vez que o usuário alterar o valor da taxa de crescimento de 2027, para que os valores sejam recalculados automaticamente
+    calcular(); // toda vez que o usuário alterar o valor da taxa de crescimento de 2027, os valores será recalculados automaticamente
 }
     
 document.getElementById('crescimento-2028').oninput = function() {
@@ -15,35 +17,55 @@ document.getElementById('crescimento-perpetuo').oninput = function() {
     calcular();
 }
 
-// estou verificando se os campos de entrada são válidos, para evitar que fique aparecendo NaN nos campos automáticos, caso o usuário deixe algum campo vazio ou com um valor inválido, a função camposValidos() retorna false e os campos automáticos ficam com o valor 0
+// Estou verificando se os campos de entrada são válidos, para evitar que fique aparecendo NaN nos campos automáticos, caso o usuário deixe algum campo vazio ou com um valor inválido
 function camposValidos() {
     const campos = [
         'payout', 'taxa-desconto', 'ex-tesouraria', 'patrimonio-liquido', 
         'preco-acao', 'll-2025', 'll-2026', 'crescimento-2026', 
         'crescimento-2027', 'crescimento-2028', 'crescimento-perpetuo'
     ];
-    return campos.every(id => !isNaN(limparFormatacao(id)))
+    return campos.every(id => !isNaN(limparFormatacao(id))) // estou verificando se todos os campos de entrada são válidos, usando a função limparFormatacao para pegar o valor numérico dos campos, e verificando se não é NaN, se algum campo for inválido, a função retorna false e os cálculos não são realizados, evitando que apareça NaN nos campos automáticos
 }
 
-// assim que o usuario carregar a página, todos inputs começam com o valor 0
+// Formata números puros para o padrão de exibição decimal brasileiro (ex: 1234 -> "1.234").
+function valorParaNumeroFormatado(valor) {
+    if (!isFinite(valor) || isNaN(valor)) {
+        return "0";
+    }
+    return new Intl.NumberFormat('pt-BR', { 
+        style: 'decimal', 
+        maximumFractionDigits: 0 
+    }).format(valor);
+}
+
+// Assim que o usuario carregar a página, todos inputs começam com o valor 0
 window.onload = function() {
-    calcular() // chama calcular para já preencher os campos automáticos com 0
-    document.getElementById('payout').value = 0
-    document.getElementById('taxa-desconto').value = 0
-    document.getElementById('ex-tesouraria').value = 0
-    document.getElementById('patrimonio-liquido').value = 0
-    document.getElementById('preco-acao').value = 0
-    document.getElementById('ll-2025').value = 0
-    document.getElementById('ll-2026').value = 0
-    document.getElementById('crescimento-2026').value = 0
-    document.getElementById('crescimento-2027').value = 0
-    document.getElementById('crescimento-2028').value = 0
-    document.getElementById('crescimento-perpetuo').value = 3
-    document.getElementById('roe').value = 0
-    document.getElementById('crescimento-esperado').value = 0
+
+    document.getElementById('payout').value = valorParaPorcentagem(0);
+    document.getElementById('taxa-desconto').value = valorParaPorcentagem(0);
+    document.getElementById('roe').value = valorParaPorcentagem(0);
+    document.getElementById('crescimento-esperado').value = valorParaPorcentagem(0);
+
+    document.getElementById('ex-tesouraria').value = valorParaNumeroFormatado(0);
+    document.getElementById('patrimonio-liquido').value = valorParaMoeda(0);
+    document.getElementById('preco-acao').value = valorParaMoeda(0);
+    
+    document.getElementById('ll-2025').value = valorParaMoeda(0);
+    document.getElementById('ll-2026').value = valorParaMoeda(0);
+    document.getElementById('crescimento-2026').value = valorParaPorcentagem(0);
+    
+    document.getElementById('crescimento-2027').value = valorParaPorcentagem(0);
+    document.getElementById('crescimento-2028').value = valorParaPorcentagem(0);
+    document.getElementById('crescimento-perpetuo').value = valorParaPorcentagem(3);
+
+    calcular(); 
+
 }
 
-// Funções auxiliares para formatação de moeda e porcentagem, limpeza de formatação e facilitar o cálculo dos valores
+/**
+ * Converte um valor numérico para o formato de moeda brasileiro (R$ 0,00).
+ * Inclui tratamento para evitar 'NaN' ou 'Infinity' em valores não calculáveis.
+ */
 function valorParaMoeda(valor) {
 
     // isFinite verifica se o número é válido (barra NaN e Infinity)
@@ -59,6 +81,7 @@ function valorParaMoeda(valor) {
 
 }
 
+// Converte um valor numérico para o formato de porcentagem brasileiro (0,00%).
 function valorParaPorcentagem(valor) {
 
     if (!isFinite(valor) || isNaN(valor)) {
@@ -72,33 +95,27 @@ function valorParaPorcentagem(valor) {
 
 }
 
-// funções são chamadas no evento onblur dos inputs para limpar a formatação quando o usuário clicar no input para editar o valor
+// Funções disparadas onblur: pegam o valor atual, remove a formatação, recalculam a exibição e devolvem o valor formatado ao usuário.
 function formatarMoeda(id) {
-
     const valorNumerico = limparFormatacao(id); 
     document.getElementById(id).value = valorParaMoeda(valorNumerico);
-
 }
 
 function formatarPorcentagem(id) {
-
     const valorNumerico = limparFormatacao(id);
     document.getElementById(id).value = valorParaPorcentagem(valorNumerico);
-
 }
 
 function formatarValor(id) {
-
     const valorNumerico = limparFormatacao(id);
     const valorFormatado = new Intl.NumberFormat('pt-BR', {
         style: 'decimal',
         maximumFractionDigits: 0
     }).format(valorNumerico);
     document.getElementById(id).value = valorFormatado;
-
 }
 
-// essa função é chamada no evento onfocus dos inputs, para limpar a formatação e deixar apenas o valor numérico, facilitando a edição pelo usuário, e também é usada para pegar o valor numérico dos inputs para os cálculos
+// remove todos os caracteres não numéricos (R$, %, pontos de milhar) e converte a vírgula decimal para ponto, permitindo que o JS realize cálculos matemáticos.
 function limparFormatacao(id) {
 
     let valor = document.getElementById(id).value.toString();
@@ -119,14 +136,20 @@ function limparFormatacao(id) {
 
 }
 
+// Função disparada onfocus: limpa o campo para facilitar a edição, removendo formatações e deixando apenas o número puro, para o usuário editar mais facilmente.
 function limparCampo(id) {
 
     const valor = limparFormatacao(id);
-    // Devolve o número pro input trocando o ponto por vírgula, para facilitar a edição em PT-BR
-    document.getElementById(id).value = valor.toString().replace('.', ',');
+    // Se o valor for 0, limpamos o campo completamente para não ficar "0" atrapalhando a digitação, caso contrário, formatamos o valor para facilitar a edição (ex: 1200 -> "1.200")
+    if (valor === 0) {
+        document.getElementById(id).value = "";
+    } else {
+        document.getElementById(id).value = valor.toString().replace('.', ',');
+    }
 
 }
 
+// Função para calcular calcular todos os valores automaticos, disparada oninput em vários campos, para atualizar os resultados em tempo real conforme o usuário digita.
 function calcular(){
 
     if (!camposValidos) return;
@@ -135,7 +158,7 @@ function calcular(){
     const patrimonioLiquido = limparFormatacao('patrimonio-liquido'); // estou pegando o id do input do patrimônio líquido e armazenando na variável patrimonioLiquido
     const ll2025 = limparFormatacao('ll-2025'); // estou pegando o id do input do lucro líquido de 2025 e armazenando na variável ll2025
     const roe = (ll2025 / patrimonioLiquido) * 100;
-    document.getElementById('roe').value = roe.toFixed(2); // estou pegando o id do input do ROE e atribuindo o valor do ROE calculado, formatado com 2 casas decimais, resultado aparece automaticamente no input do ROE
+    document.getElementById('roe').value = valorParaPorcentagem(roe); // estou pegando o id do input do ROE e atribuindo o valor do ROE calculado, formatado com 2 casas decimais, resultado aparece automaticamente no input do ROE
 
     // Calcular Taxa de Crescimento
     const payout = limparFormatacao('payout'); // estou pegando o id do input do payout e armazenando na variável payout
@@ -182,7 +205,7 @@ function calcular(){
     // Calcular perpétuo
         // Calcular ll perpétuo
     if (!crescimentoAlterado['perpetuo']) {
-        document.getElementById('crescimento-perpetuo').value = 3.00;
+        document.getElementById('crescimento-perpetuo').value = valorParaPorcentagem(3);
     }
     const crescimentoPerpetuo = limparFormatacao('crescimento-perpetuo');
     const llPerpetuo = ll2028 * (1 + (crescimentoPerpetuo / 100)) / ((taxaDesconto / 100) - (crescimentoPerpetuo / 100));
@@ -192,12 +215,9 @@ function calcular(){
     const vplPerpetuo = llPerpetuo / Math.pow(1 + (taxaDesconto / 100), 4); // CONSERTAR ESSE VALOR PARA DEIXAR 3% PADRAO E SE O USUARIO QUISER ALTERAR, FIQUE A VONTADE
     document.getElementById('vpl-perpetuo').value = valorParaMoeda(vplPerpetuo);
 
-
-
     // Market Cap
     const marketCap = vpl2026 + vpl2027 + vpl2028 + vplPerpetuo;
     document.getElementById('market-cap').value = valorParaMoeda(marketCap);
-
 
     // Preço teto
     const tesouraria = limparFormatacao('ex-tesouraria');
