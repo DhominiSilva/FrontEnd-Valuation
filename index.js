@@ -124,9 +124,17 @@ function limparFormatacao(id) {
     // Remove R$, % e espaços em branco
     valor = valor.replace(/[R$%\s]/g, '');
 
-    // Se o valor tem ponto E vírgula (ex: 1.200,50), tiramos o ponto de milhar
+    // Se o valor tem ponto e vírgula (ex: 1.200,50), tiramos o ponto de milhar e ajustamos a vírgula
     if (valor.includes('.') && valor.includes(',')) {
         valor = valor.replace(/\./g, '');
+    }else if (valor.includes(',')) { // Tem APENAS vírgula (ex: 1200,50 ou 15,00) 
+        valor = valor.replace(',', '.');
+    }else if (valor.includes('.')) { // Tem APENAS pontos (ex: 1.500.000 ou 1.500)
+        const partes = valor.split('.');
+        // Se houver mais de um ponto (ex: 1.500.000) ou se o ponto for seguido por exatamente 3 dígitos (ex: 1.500)
+        if (partes.length > 2 || partes[partes.length - 1].length === 3) {
+            valor = valor.replace(/\./g, '');
+        }
     }
     
     // Troca a vírgula decimal por ponto para o JavaScript conseguir calcular
