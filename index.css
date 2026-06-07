@@ -7,6 +7,7 @@
 :root{
     --cor-fundo: rgb(82, 137, 127);
     --cor-titulo: #175240;
+    --cor-fonte: rgb(235, 231, 231);
     --cor-fonte-titulo: white;
     --borda-superior: 0.5rem 0.5rem 0 0;
     --borda-total: 0.5rem;
@@ -72,6 +73,11 @@ body{
     border-radius: var(--borda-total);
 }
 
+tr td{
+    font-weight: 600; /* Define a espessura da fonte como extra negrito */
+    color: var(--cor-fonte);      /* Opcional: destaque a cor para combinar com o visual */
+}
+
 #coluna-direita h2{
     padding: 0.9%;
     background-color: var(--cor-titulo);
@@ -97,13 +103,24 @@ table{
     font-size: 1.5rem;
 }
 
-.campo-input-pequeno{
-    width: 15%;
+.campo-input-premissas{
+    width: 16%;
 }
 
-.campo-input-pequeno input{
+.campo-input-premissas input{
     width: 100%;
     padding: 1%;
+    text-align: right;
+}
+
+.campo-input-crescimento{
+    width: 23%;
+}
+
+.campo-input-crescimento input{
+    width: 100%;
+    padding: 1%;
+    text-align: right;
 }
 
 .campo-input{
@@ -111,7 +128,6 @@ table{
     width: 70%;
     display: flex;
     align-items: center;
-    justify-content: right;
 }
 
 .campo-input input{
@@ -124,6 +140,12 @@ input {
     border: none;
     outline: none;
     background: transparent;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+input:disabled {
+    color: rgb(73, 73, 73);
 }
 
 .campo{
@@ -134,7 +156,7 @@ input {
 }
 
 .campo label{
-    color: rgb(235, 231, 231);
+    color: var(--cor-fonte);
     font-size: 1.1rem;
     font-weight: 600;
     width: 80%;
@@ -181,6 +203,7 @@ input::-webkit-inner-spin-button {
     background-color: rgb(222, 222, 222);
     resize: none; /* remove a opção de redimensionar o textarea */
     outline: none; /* remove a borda azul que aparece ao clicar no textarea */
+    font-weight: 600;
 }
 
 textarea, input {
