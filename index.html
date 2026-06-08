@@ -187,36 +187,40 @@
 
                     <div id="resultado-projecao">
 
-                        <div id="campo-fcd">
-                            <img src="img/icon_premissas.png" alt="calculadora" style="width: 40px; height: 40px; margin-right: 5px;">
-                            <label>Preço da ação</label>
-                            <div class="campo-input">
-                                <input type="text" id="card-preco-acao" oninput="calcular()" onblur="formatarMoeda('preco-acao')" disabled>
+                        <div class="campo-linha-mobile">
+                            <div class="campo-fcd">
+                                <img src="img/icon_premissas.png" alt="calculadora" style="width: 40px; height: 40px; margin-right: 5px;">
+                                <label>Preço da ação</label>
+                                <div class="campo-input">
+                                    <input type="text" id="card-preco-acao" oninput="calcular()" onblur="formatarMoeda('preco-acao')" disabled>
+                                </div>
+                            </div>
+    
+                            <div class="campo-fcd">
+                                <img src="img/icon_premissas.png" alt="calculadora" style="width: 40px; height: 40px; margin-right: 5px;"> 
+                                <label>Preço teto</label>
+                                <div class="campo-input">
+                                    <input type="text" id="card-preco-por-acao" disabled oninput="calcular()" onblur="formatarMoeda('preco-por-acao')">
+                                </div>
                             </div>
                         </div>
 
-                        <div id="campo-fcd">
-                            <img src="img/icon_premissas.png" alt="calculadora" style="width: 40px; height: 40px; margin-right: 5px;"> 
-                            <label>Preço teto</label>
-                            <div class="campo-input">
-                                <input type="text" id="card-preco-por-acao" disabled oninput="calcular()" onblur="formatarMoeda('preco-por-acao')">
+                        <div class="campo-linha-mobile">
+                            <div class="campo-fcd">
+                                <img src="img/icon_premissas.png" alt="calculadora" style="width: 40px; height: 40px; margin-right: 5px;">
+                                <label>Margem de segurança</label>
+                                <div class="campo-input">
+                                    <input type="text" id="card-margem-seguranca" disabled oninput="calcular()" onblur="formatarPorcentagem('margem-seguranca')">
+                                </div>
                             </div>
-                        </div>
-
-                        <div id="campo-fcd">
-                            <img src="img/icon_premissas.png" alt="calculadora" style="width: 40px; height: 40px; margin-right: 5px;">
-                            <label>Margem de segurança</label>
-                            <div class="campo-input">
-                                <input type="text" id="card-margem-seguranca" disabled oninput="calcular()" onblur="formatarPorcentagem('margem-seguranca')">
+                            
+                            <div class="campo-fcd">
+                                <img src="img/icon_premissas.png" alt="calculadora" style="width: 40px; height: 40px; margin-right: 5px;">
+                                <label>Market cap</label>
+                                <div class="campo-input">
+                                    <input type="text" id="card-market-cap" disabled oninput="calcular()" onblur="formatarMoeda('market-cap')">
+                                </div> 
                             </div>
-                        </div>
-
-                        <div id="campo-fcd">
-                            <img src="img/icon_premissas.png" alt="calculadora" style="width: 40px; height: 40px; margin-right: 5px;">
-                            <label>Market cap</label>
-                            <div class="campo-input">
-                                <input type="text" id="card-market-cap" disabled oninput="calcular()" onblur="formatarMoeda('market-cap')">
-                            </div> 
                         </div>
 
                     </div>
