@@ -97,6 +97,30 @@ table{
     padding: 1%;
 }
 
+#resultado-projecao{
+    background-color: rgb(139, 169, 157);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 1.5%;
+    margin: 1%;
+    border-radius: var(--borda-total);
+    border: 2px solid var(--cor-titulo);
+}
+
+#campo-fcd{
+    font-weight: 600;
+    color: var(--cor-fonte);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#campo-fcd#campo-fcd input{
+    text-align: center;
+}
+
 #coluna-esquerda h2{
     background-color: var(--cor-titulo);
     border-radius: var(--borda-superior);
@@ -113,7 +137,7 @@ table{
 .campo-input-premissas input{
     width: 100%;
     padding: 1%;
-    text-align: right;
+    text-align: left;
 }
 
 .campo-input-crescimento{
@@ -123,7 +147,7 @@ table{
 .campo-input-crescimento input{
     width: 100%;
     padding: 1%;
-    text-align: right;
+    text-align: left;
 }
 
 .campo-input{
@@ -135,7 +159,7 @@ table{
 
 .campo-input input{
     width: 100%;
-    text-align: right;
+    text-align: left;
     margin: 2%;
 }
 

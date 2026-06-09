@@ -223,18 +223,21 @@ function calcular(){
     const vplPerpetuo = llPerpetuo / Math.pow(1 + (taxaDesconto / 100), 4); // CONSERTAR ESSE VALOR PARA DEIXAR 3% PADRAO E SE O USUARIO QUISER ALTERAR, FIQUE A VONTADE
     document.getElementById('vpl-perpetuo').value = valorParaMoeda(vplPerpetuo);
 
+    // Preço acão
+    const precoAcao = limparFormatacao('preco-acao');
+    document.getElementById('card-preco-acao').value = valorParaMoeda(precoAcao);
+
     // Market Cap
     const marketCap = vpl2026 + vpl2027 + vpl2028 + vplPerpetuo;
-    document.getElementById('market-cap').value = valorParaMoeda(marketCap);
+    document.getElementById('card-market-cap').value = valorParaMoeda(marketCap);
 
     // Preço teto
     const tesouraria = limparFormatacao('ex-tesouraria');
     const precoTeto = (vpl2026 + vpl2027 + vpl2028 + vplPerpetuo) / tesouraria;
-    document.getElementById('preco-por-acao').value = valorParaMoeda(precoTeto);
+    document.getElementById('card-preco-por-acao').value = valorParaMoeda(precoTeto);
 
     // Margem de segurança
-    const precoAcao = limparFormatacao('preco-acao');
     const margemSeguranca = (precoTeto - precoAcao) / precoAcao * 100;
-    document.getElementById('margem-seguranca').value = valorParaPorcentagem(margemSeguranca);
+    document.getElementById('card-margem-seguranca').value = valorParaPorcentagem(margemSeguranca);
 
 }
