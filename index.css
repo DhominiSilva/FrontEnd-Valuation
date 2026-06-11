@@ -148,12 +148,13 @@ table{
 
 .campo-input-premissas input{
     width: 100%;
-    padding: 1%;
+    padding: 4%;
     text-align: left;
 }
 
 .campo-input-crescimento{
     width: 23%;
+    padding: 0.7%;
 }
 
 .campo-input-crescimento input{
@@ -256,4 +257,69 @@ footer{
     color: var(--cor-fonte-titulo);
     width: 100%;
     margin-top: auto;
+}
+
+/* Para calulares*/
+@media (max-width: 768px) {
+    
+    #conteudo-principal{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #coluna-esquerda{
+        width: 100%;
+    }
+
+    #coluna-direita{
+        width: 100%;
+        margin-top: 4%;
+    }
+
+    h2{
+        font-size: medium;
+    }
+
+    .titulo-esquerda img{
+        width: 20px;
+        height: 20px;
+    }
+
+    .titulo-direita img{
+        width: 20px;
+        height: 20px;
+    }
+
+    .titulo-anotacao img{
+        width: 20px;
+        height: 20px;
+    }
+
+    .titulo-anotacao{
+        padding: 2%;
+    }
+
+    .titulo-direita{
+        padding: 2%;
+    }
+
+    .campo label{
+        font-size: 0.9rem;
+    }
+
+    th{
+        font-size: 0.8rem;
+    }
+
+    tr td{
+        font-size: small;
+    }
+
+    #resultado-projecao{
+        display: none;
+    }
+
+    table thead{
+        display: none;
+    }
 }
