@@ -83,6 +83,10 @@ tr td{
     color: var(--cor-fonte);
 }
 
+table td {
+    padding: 0.5% 0;
+}
+
 
 th{
     text-align: left;
