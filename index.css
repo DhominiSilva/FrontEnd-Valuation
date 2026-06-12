@@ -305,14 +305,14 @@ footer{
 
     .campo label{
         font-size: 0.9rem;
+        color: rgba(235, 231, 231, 0.8);
     }
 
-    th{
-        font-size: 0.8rem;
-    }
-
-    tr td{
+    td{
+        display: flex;
+        justify-content: space-between;
         font-size: small;
+        align-items: center;
     }
 
     #resultado-projecao{
@@ -322,4 +322,62 @@ footer{
     table thead{
         display: none;
     }
+
+    table, tbody, tr{
+        display: block;
+        width: 100%;
+    }
+
+    tr{
+        display: flex;
+        flex-direction: column;
+        background-color: #497870;
+        border-radius: var(--borda-total);
+        margin: 4% 0;
+    }
+
+    td:first-child{
+        font-size: 1.15rem;
+        font-weight: 700;
+        padding: 0.5rem;
+        color: var(--cor-fonte-titulo);
+        background-color: #3D665E;
+        border-radius: var(--borda-superior);
+    }
+
+    td:not(:first-child){
+        padding: 0.5rem;
+    }
+
+    #premissas .campo-input-premissas{
+        width: 20%;
+    }
+
+    #projecao .campo-input{
+        width: 90%;
+    }
+
+    .campo-input input, .campo-input-premissas input{
+        text-align: right;
+    }
+
+    table tbody td:not(:first-child)::before {
+        content: attr(data-label);
+        font-size: 0.9rem;
+        color: rgba(235, 231, 231, 0.8);
+    }
+
+    td:not(:first-child) input{
+        text-align: right;
+    }
+
+    table tbody td .campo-input {
+        width: 60%;
+    }
+
+    table tbody td .campo-input-crescimento {
+        width: 20%;
+    }
+
+
 }
