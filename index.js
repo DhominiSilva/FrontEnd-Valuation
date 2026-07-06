@@ -52,8 +52,8 @@ window.onload = function() {
     
     document.getElementById('ll-2025').value = valorParaMoeda(0);
     document.getElementById('ll-2026').value = valorParaMoeda(0);
+
     document.getElementById('crescimento-2026').value = valorParaPorcentagem(0);
-    
     document.getElementById('crescimento-2027').value = valorParaPorcentagem(0);
     document.getElementById('crescimento-2028').value = valorParaPorcentagem(0);
     document.getElementById('crescimento-perpetuo').value = valorParaPorcentagem(3);
@@ -157,6 +157,7 @@ function limparCampo(id) {
 
 }
 
+let quantidadeAnos = 3;
 // Função para calcular calcular todos os valores automaticos, disparada oninput em vários campos, para atualizar os resultados em tempo real conforme o usuário digita.
 function calcular(){
 
@@ -240,4 +241,126 @@ function calcular(){
     const margemSeguranca = (precoTeto - precoAcao) / precoAcao * 100;
     document.getElementById('card-margem-seguranca').value = valorParaPorcentagem(margemSeguranca);
 
+    if(quantidadeAnos === 5){
+        // Calcular 2029
+            // Calcular ll2029
+        if (!crescimentoAlterado[2029]) {
+            document.getElementById('crescimento-2029').value = valorParaPorcentagem(crescimentoEsperado); 
+        }
+        const crescimento2029 = limparFormatacao('crescimento-2029');
+        const ll2029 = ll2028 * (1 + (crescimento2029 / 100));
+        document.getElementById('ll-2029').value = valorParaMoeda(ll2029); 
+    
+            // Calcular VPL de 2029
+        const vpl2029 = ll2029 / Math.pow(1 + (taxaDesconto / 100), 4);
+        document.getElementById('vpl-2029').value = valorParaMoeda(vpl2029); 
+    
+        // Calcular 2030
+            // Calcular ll2030
+        if (!crescimentoAlterado[2030]) {
+            document.getElementById('crescimento-2030').value = valorParaPorcentagem(crescimentoEsperado); 
+        }
+        const crescimento2030 = limparFormatacao('crescimento-2030');
+        const ll2030 = ll2029 * (1 + (crescimento2030 / 100));
+        document.getElementById('ll-2030').value = valorParaMoeda(ll2030); 
+    
+            // Calcular VPL de 2030
+        const vpl2030 = ll2030 / Math.pow(1 + (taxaDesconto / 100), 5);
+        document.getElementById('vpl-2030').value = valorParaMoeda(vpl2030); 
+    
+        // Calcular perpétuo
+            // Calcular ll perpétuo
+        if (!crescimentoAlterado['perpetuo']) {
+            document.getElementById('crescimento-perpetuo').value = valorParaPorcentagem(3);
+        }
+        const crescimentoPerpetuo = limparFormatacao('crescimento-perpetuo');
+        const llPerpetuo = ll2030 * (1 + (crescimentoPerpetuo / 100)) / ((taxaDesconto / 100) - (crescimentoPerpetuo / 100));
+        document.getElementById('ll-perpetuo').value = valorParaMoeda(llPerpetuo);
+    
+            // Calcular VPL perpétuo
+        const vplPerpetuo = llPerpetuo / Math.pow(1 + (taxaDesconto / 100), 6); // CONSERTAR ESSE VALOR PARA DEIXAR 3% PADRAO E SE O USUARIO QUISER ALTERAR, FIQUE A VONTADE
+        document.getElementById('vpl-perpetuo').value = valorParaMoeda(vplPerpetuo);
+
+        // Preço acão
+        const precoAcao = limparFormatacao('preco-acao');
+        document.getElementById('card-preco-acao').value = valorParaMoeda(precoAcao);
+
+        // Market Cap
+        const marketCap = vpl2026 + vpl2027 + vpl2028 + vpl2029 + vpl2030 + vplPerpetuo;
+        document.getElementById('card-market-cap').value = valorParaMoeda(marketCap);
+
+        // Preço teto
+        const tesouraria = limparFormatacao('ex-tesouraria');
+        const precoTeto = (vpl2026 + vpl2027 + vpl2028 + vpl2029 + vpl2030 + vplPerpetuo) / tesouraria;
+        document.getElementById('card-preco-por-acao').value = valorParaMoeda(precoTeto);
+
+        // Margem de segurança
+        const margemSeguranca = (precoTeto - precoAcao) / precoAcao * 100;
+        document.getElementById('card-margem-seguranca').value = valorParaPorcentagem(margemSeguranca);
+
+    }
+
 }
+
+const projecaoBt5 = document.querySelector('.projecao-5');
+projecaoBt5.addEventListener('click', () => {
+    if(document.getElementById('ll-2030')){
+        return; // Se o elemento ll-2030 já existir, significa que a projeção de 5 anos já foi adicionada, então não faz nada.
+    } else {
+        const anosExtras = InnerHTML = `
+            <tr>
+                <td>2029</td>
+                <td data-label="Lucro líquido">
+                    <div class="campo-input">
+                        <input type="text" id="ll-2029" disabled oninput="calcular()" onblur="formatarMoeda('ll-2029')">
+                    </div>
+                </td>
+                <td data-label="Crescimento">
+                    <div class="campo-input-crescimento editavel">
+                        <input type="text" id="crescimento-2029" onfocus="limparCampo('crescimento-2029')" oninput="calcular()" onblur="formatarPorcentagem('crescimento-2029')">
+                    </div>
+                </td>
+                <td data-label="VPL">
+                    <input type="text" id="vpl-2029" disabled oninput="calcular()" onblur="formatarMoeda('vpl-2029')">
+                </td>
+            </tr>
+    
+            <tr>
+                <td>2030</td>
+                <td data-label="Lucro líquido">
+                    <div class="campo-input">
+                        <input type="text" id="ll-2030" disabled oninput="calcular()" onblur="formatarMoeda('ll-2030')">
+                    </div>
+                </td>
+                <td data-label="Crescimento">
+                    <div class="campo-input-crescimento editavel">
+                        <input type="text" id="crescimento-2030" onfocus="limparCampo('crescimento-2030')" oninput="calcular()" onblur="formatarPorcentagem('crescimento-2030')">
+                    </div>
+                </td>
+                <td data-label="VPL">
+                    <input type="text" id="vpl-2030" disabled oninput="calcular()" onblur="formatarMoeda('vpl-2030')">
+                </td>
+            </tr>
+        `;
+        // Injeta antes do perpétuo
+        perpetuo.insertAdjacentHTML('beforebegin', anosExtras);
+        quantidadeAnos = 5;
+        calcular();
+    }
+    document.querySelector('.projecao-3').classList.remove('active');
+    document.querySelector('.projecao-5').classList.add('active');
+});
+
+const projecaoBT3 = document.querySelector('.projecao-3');
+projecaoBT3.addEventListener('click', () => {
+    quantidadeAnos = 3;
+    // Remove os elementos de 2029 e 2030 se existirem
+    const ll2029 = document.getElementById('ll-2029');
+    const ll2030 = document.getElementById('ll-2030');
+    if (ll2029) ll2029.closest('tr').remove();
+    if (ll2030) ll2030.closest('tr').remove();
+    calcular();
+
+    document.querySelector('.projecao-5').classList.remove('active');
+    document.querySelector('.projecao-3').classList.add('active');
+});

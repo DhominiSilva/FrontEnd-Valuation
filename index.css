@@ -68,9 +68,6 @@ body{
 
 #coluna-direita{
     width: 70%;
-}
-
-#fcd{
     display: flex;
     flex-direction: column;
     background-color: var(--cor-fundo);
@@ -109,11 +106,32 @@ table{
 .titulo-direita{
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: stretch; /* faz os filhos esticarem para a mesma altura */
     background-color: var(--cor-titulo);
     border-radius: var(--borda-superior);
     padding: 0.85%;
     color: var(--cor-fonte-titulo);
+}
+
+.botoes-anos{
+    margin-left: auto;
+    display: flex; 
+    align-items: center;
+}
+
+.botoes-anos button{
+    background-color: rgb(139, 139, 139);
+    font-weight: 700;
+    color: black;
+    border: none;
+    border-radius: 0.2rem;
+    padding: 0.3rem;
+    margin: 0 0.3rem;
+    cursor: pointer;
+}
+
+.botoes-anos button.active{
+    background-color: rgb(163, 163, 163);
 }
 
 .imagem-titulo{
