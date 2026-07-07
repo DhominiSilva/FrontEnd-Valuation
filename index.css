@@ -120,9 +120,9 @@ table{
 }
 
 .botoes-anos button{
-    background-color: rgb(139, 139, 139);
+    background-color: rgb(59, 105, 73);
     font-weight: 700;
-    color: black;
+    color: white;
     border: none;
     border-radius: 0.2rem;
     padding: 0.3rem;
@@ -131,7 +131,7 @@ table{
 }
 
 .botoes-anos button.active{
-    background-color: rgb(163, 163, 163);
+    background-color: rgb(85, 133, 101);
 }
 
 .imagem-titulo{
