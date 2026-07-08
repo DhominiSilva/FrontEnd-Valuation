@@ -66,6 +66,33 @@ body{
     border-radius: var(--borda-total);
 }
 
+#salvar-preco-teto{
+    background-color: var(--cor-titulo);
+    display: flex;
+    justify-content: space-evenly;
+    padding: 2.5%;
+    border-top: solid 0.1rem rgb(129, 129, 129);
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+#salvar-preco-teto button{
+    color: white;
+    font-weight: 700;
+    padding: 1.5%;
+    border-radius: var(--borda-total);
+    border: none;
+}
+
+.salvar-preco{
+    background-color: green;
+    width:50%;
+}
+
+.reset{
+    background-color: blue;     
+    width: 30%;
+}
+
 #coluna-direita{
     width: 70%;
     display: flex;
