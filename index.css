@@ -81,16 +81,25 @@ body{
     padding: 1.5%;
     border-radius: var(--borda-total);
     border: none;
+    cursor:pointer;
 }
 
 .salvar-preco{
-    background-color: green;
+    background-color: #2E7D5B;
     width:50%;
 }
 
+.salvar-preco:hover{
+    background-color: #209361;
+}
+
 .reset{
-    background-color: blue;     
+    background-color: rgb(59, 105, 73);
     width: 30%;
+}
+
+.reset:hover{
+    background-color: rgb(70, 120, 85);
 }
 
 #coluna-direita{
@@ -297,6 +306,13 @@ textarea, input {
 
 input:disabled {
     cursor: default; /* cursor normal de seta quando passar em cima de inputs desabilitados */
+}
+
+img {
+    -webkit-touch-callout: none; /* bloqueia o menu que aparece no iOS Safari quando você clicar e segurar em uma imagem */
+    -webkit-user-select: none;   /* impede seleção da imagem ao arrastar o dedo/mouse na imagem (cobre a maioria dos navegadores) */
+    user-select: none; /* faz a mesma coisa que o de cima mas inclui o Safari/iOS */
+    -webkit-user-drag: none;     /* impede arrastar a imagem */
 }
 
 footer{
