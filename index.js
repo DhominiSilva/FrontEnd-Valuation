@@ -364,3 +364,7 @@ projecaoBT3.addEventListener('click', () => {
     document.querySelector('.projecao-5').classList.remove('active');
     document.querySelector('.projecao-3').classList.add('active');
 });
+
+function reset() {
+    location.reload();
+}
