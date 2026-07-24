@@ -1,369 +1,313 @@
-// Variável para controlar se o usuário alterou as taxas de crescimento, para não sobrescrever os valores caso o usuário queira colocar uma taxa diferente da taxa de crescimento esperada
-let crescimentoAlterado = {2027: false,2028: false,perpetuo: false};
+let quantidadeAnos = 3;
 
-// Eventos de input (oninput) para monitorar alterações manuais nas taxas, quando o usuário digita algo nesses campos, marcamos como 'true' para travar o recálculo automático.
-document.getElementById('crescimento-2027').oninput = function() {
-    crescimentoAlterado[2027] = true
-    calcular(); // toda vez que o usuário alterar o valor da taxa de crescimento de 2027, os valores será recalculados automaticamente
-}
-    
-document.getElementById('crescimento-2028').oninput = function() {
-    crescimentoAlterado[2028] = true
-    calcular(); 
-}
+// Controla se o usuário alterou manualmente as taxas de crescimento
+const crescimentoAlterado = {
+    2027: false,
+    2028: false,
+    2029: false,
+    2030: false,
+    perpetuo: false
+};
 
-document.getElementById('crescimento-perpetuo').oninput = function() {
-    crescimentoAlterado['perpetuo'] = true
-    calcular();
-}
+// Atalho para definir o valor de um input (evitando que eu escreva document.get... varias vezes)
+const definirValor = (id, valor) => {
+    const elemento = document.getElementById(id);
+    if (elemento) {
+        elemento.value = valor;
+    }
+};
 
-// Estou verificando se os campos de entrada são válidos, para evitar que fique aparecendo NaN nos campos automáticos, caso o usuário deixe algum campo vazio ou com um valor inválido
+// Verifica se todos os campos têm valores numéricos válidos
 function camposValidos() {
     const campos = [
         'payout', 'taxa-desconto', 'ex-tesouraria', 'patrimonio-liquido', 
         'preco-acao', 'll-2025', 'll-2026', 'crescimento-2026', 
         'crescimento-2027', 'crescimento-2028', 'crescimento-perpetuo'
     ];
-    return campos.every(id => !isNaN(limparFormatacao(id))) // estou verificando se todos os campos de entrada são válidos, usando a função limparFormatacao para pegar o valor numérico dos campos, e verificando se não é NaN, se algum campo for inválido, a função retorna false e os cálculos não são realizados, evitando que apareça NaN nos campos automáticos
+    return campos.every(id => !isNaN(limparFormatacao(id)));
 }
 
-// Formata números puros para o padrão de exibição decimal brasileiro (ex: 1234 -> "1.234").
-function valorParaNumeroFormatado(valor) {
-    if (!isFinite(valor) || isNaN(valor)) {
-        return "0";
-    }
+// FORMATADORES DE DADOS
+//----------------------
+
+// Adiciona os pontos (.), melhorando a leitura visual 1.000.000
+function numeroFormatado(valor) {
+    if (!isFinite(valor) || isNaN(valor)) return "0";
     return new Intl.NumberFormat('pt-BR', { 
         style: 'decimal', 
         maximumFractionDigits: 0 
     }).format(valor);
 }
 
-// Assim que o usuario carregar a página, todos inputs começam com o valor 0
-window.onload = function() {
-
-    document.getElementById('payout').value = valorParaPorcentagem(0);
-    document.getElementById('taxa-desconto').value = valorParaPorcentagem(0);
-    document.getElementById('roe').value = valorParaPorcentagem(0);
-    document.getElementById('crescimento-esperado').value = valorParaPorcentagem(0);
-
-    document.getElementById('ex-tesouraria').value = valorParaNumeroFormatado(0);
-    document.getElementById('patrimonio-liquido').value = valorParaMoeda(0);
-    document.getElementById('preco-acao').value = valorParaMoeda(0);
-    
-    document.getElementById('ll-2025').value = valorParaMoeda(0);
-    document.getElementById('ll-2026').value = valorParaMoeda(0);
-
-    document.getElementById('crescimento-2026').value = valorParaPorcentagem(0);
-    document.getElementById('crescimento-2027').value = valorParaPorcentagem(0);
-    document.getElementById('crescimento-2028').value = valorParaPorcentagem(0);
-    document.getElementById('crescimento-perpetuo').value = valorParaPorcentagem(3);
-
-    calcular(); 
-
-}
-
-/**
- * Converte um valor numérico para o formato de moeda brasileiro (R$ 0,00).
- * Inclui tratamento para evitar 'NaN' ou 'Infinity' em valores não calculáveis.
- */
-function valorParaMoeda(valor) {
-
-    // isFinite verifica se o número é válido (barra NaN e Infinity)
-    if (!isFinite(valor) || isNaN(valor)) {
-        return "R$ 0,00";
-    }
-
+// Formata para moeda R$ 3.000,00
+function numeroMoeda(valor) {
+    if (!isFinite(valor) || isNaN(valor)) return "R$ 0,00";
     return new Intl.NumberFormat('pt-BR', { 
         style: 'currency', 
         currency: 'BRL', 
         minimumFractionDigits: 2 
     }).format(valor);
-
 }
 
-// Converte um valor numérico para o formato de porcentagem brasileiro (0,00%).
-function valorParaPorcentagem(valor) {
-
-    if (!isFinite(valor) || isNaN(valor)) {
-        return "0,00%";
-    }
-
+// Formata para porcentagem 50%
+function numeroPorcentagem(valor) {
+    if (!isFinite(valor) || isNaN(valor)) return "0,00%";
     return new Intl.NumberFormat('pt-BR', { 
         style: 'percent', 
         minimumFractionDigits: 2 
     }).format(valor / 100);
-
 }
 
-// Funções disparadas onblur: pegam o valor atual, remove a formatação, recalculam a exibição e devolvem o valor formatado ao usuário.
-function formatarMoeda(id) {
-    const valorNumerico = limparFormatacao(id); 
-    document.getElementById(id).value = valorParaMoeda(valorNumerico);
-}
-
-function formatarPorcentagem(id) {
-    const valorNumerico = limparFormatacao(id);
-    document.getElementById(id).value = valorParaPorcentagem(valorNumerico);
-}
-
-function formatarValor(id) {
-    const valorNumerico = limparFormatacao(id);
-    const valorFormatado = new Intl.NumberFormat('pt-BR', {
-        style: 'decimal',
-        maximumFractionDigits: 0
-    }).format(valorNumerico);
-    document.getElementById(id).value = valorFormatado;
-}
-
-// remove todos os caracteres não numéricos (R$, %, pontos de milhar) e converte a vírgula decimal para ponto, permitindo que o JS realize cálculos matemáticos.
+// remove formatações visuais para cálculos matemáticos
 function limparFormatacao(id) {
+    const elemento = document.getElementById(id);
+    if (!elemento) return 0;
 
-    let valor = document.getElementById(id).value.toString();
+    let valor = elemento.value.toString();
     if (!valor) return 0;
 
-    // Remove R$, % e espaços em branco
     valor = valor.replace(/[R$%\s]/g, '');
 
-    // Se o valor tem ponto e vírgula (ex: 1.200,50), tiramos o ponto de milhar e ajustamos a vírgula
     if (valor.includes('.') && valor.includes(',')) {
         valor = valor.replace(/\./g, '');
-    }else if (valor.includes(',')) { // Tem APENAS vírgula (ex: 1200,50 ou 15,00) 
+    } else if (valor.includes(',')) {
         valor = valor.replace(',', '.');
-    }else if (valor.includes('.')) { // Tem APENAS pontos (ex: 1.500.000 ou 1.500)
+    } else if (valor.includes('.')) {
         const partes = valor.split('.');
-        // Se houver mais de um ponto (ex: 1.500.000) ou se o ponto for seguido por exatamente 3 dígitos (ex: 1.500)
         if (partes.length > 2 || partes[partes.length - 1].length === 3) {
             valor = valor.replace(/\./g, '');
         }
     }
     
-    // Troca a vírgula decimal por ponto para o JavaScript conseguir calcular
     valor = valor.replace(',', '.');
-
     return parseFloat(valor) || 0;
-
 }
 
-// Função disparada onfocus: limpa o campo para facilitar a edição, removendo formatações e deixando apenas o número puro, para o usuário editar mais facilmente.
+// Formatações disparadas em eventos onblur/onfocus
+function formatarMoeda(id) { definirValor(id, numeroMoeda(limparFormatacao(id))); }
+function formatarPorcentagem(id) { definirValor(id, numeroPorcentagem(limparFormatacao(id))); }
+function formatarValor(id) { definirValor(id, numeroFormatado(limparFormatacao(id))); }
+
+// Limpa o input quando o usuario clica em cima
 function limparCampo(id) {
-
     const valor = limparFormatacao(id);
-    // Se o valor for 0, limpamos o campo completamente para não ficar "0" atrapalhando a digitação, caso contrário, formatamos o valor para facilitar a edição (ex: 1200 -> "1.200")
-    if (valor === 0) {
-        document.getElementById(id).value = "";
-    } else {
-        document.getElementById(id).value = valor.toString().replace('.', ',');
-    }
-
+    definirValor(id, valor === 0 ? "" : valor.toString().replace('.', ','));
 }
 
-let quantidadeAnos = 3;
-// Função para calcular calcular todos os valores automaticos, disparada oninput em vários campos, para atualizar os resultados em tempo real conforme o usuário digita.
-function calcular(){
+// CÁLCULO DO VALUATION
+// -------------------------------------
 
-    if (!camposValidos) return;
+function calcular() {
+    if (!camposValidos()) return;
 
-    // Calcular o ROE (Return on Equity)
-    const patrimonioLiquido = limparFormatacao('patrimonio-liquido'); // estou pegando o id do input do patrimônio líquido e armazenando na variável patrimonioLiquido
-    const ll2025 = limparFormatacao('ll-2025'); // estou pegando o id do input do lucro líquido de 2025 e armazenando na variável ll2025
+    // Premissas que o usuario informa
+    const payout = limparFormatacao('payout');
+    const taxaDesconto = limparFormatacao('taxa-desconto');
+    const tesouraria = limparFormatacao('ex-tesouraria');
+    const patrimonioLiquido = limparFormatacao('patrimonio-liquido');
+    const precoAcao = limparFormatacao('preco-acao');
+    const ll2025 = limparFormatacao('ll-2025');
+    const ll2026 = limparFormatacao('ll-2026');
+
+    // Calculo do ROE e Crescimento Esperado
     const roe = (ll2025 / patrimonioLiquido) * 100;
-    document.getElementById('roe').value = valorParaPorcentagem(roe); // estou pegando o id do input do ROE e atribuindo o valor do ROE calculado, formatado com 2 casas decimais, resultado aparece automaticamente no input do ROE
+    definirValor('roe', numeroPorcentagem(roe));
 
-    // Calcular Taxa de Crescimento
-    const payout = limparFormatacao('payout'); // estou pegando o id do input do payout e armazenando na variável payout
     const crescimentoEsperado = (roe / 100) * (1 - (payout / 100)) * 100;
-    document.getElementById('crescimento-esperado').value = valorParaPorcentagem(crescimentoEsperado); // estou pegando o id do input da taxa de crescimento e atribuindo o valor da taxa de crescimento calculada, formatado com 2 casas decimais, resultado aparece automaticamente no input da taxa de crescimento
+    definirValor('crescimento-esperado', numeroPorcentagem(crescimentoEsperado));
 
-    // Calcular 2026
-        // Calcular ll2026
-    const ll2026 = limparFormatacao('ll-2026'); // estou pegando o id do input do lucro líquido de 2026 e armazenando na variável ll2026
-    const taxaDesconto = limparFormatacao('taxa-desconto'); // estou pegando o id do input da taxa de desconto e armazenando na variável taxaDesconto
-        // Calcular VPL de 2026
-    const vpl2026 = ll2026 / Math.pow(1 + (taxaDesconto / 100), 1); // estou calculando o VPL de 2026
-    document.getElementById('vpl-2026').value = valorParaMoeda(vpl2026); // estou pegando o id do input do VPL de 2026 e atribuindo o valor do VPL calculado, formatado com 2 casas decimais, resultado aparece automaticamente no input do VPL de 2026
-        // Calcular taxa de crescimento de 2026 comparado a 2025
-    const crescimento2026 = (ll2026 - ll2025) / ll2025 * 100; // estou calculando a taxa de crescimento de 2026 em relação a 2025
-    document.getElementById('crescimento-2026').value = valorParaPorcentagem(crescimento2026); // estou pegando o id do input da taxa de crescimento de 2026 e atribuindo o valor da taxa de crescimento calculada, formatado com 2 casas decimais, resultado aparece automaticamente no input da taxa de crescimento de 2026
+    // Projeção 2026
+    const vpl2026 = ll2026 / Math.pow(1 + (taxaDesconto / 100), 1);
+    definirValor('vpl-2026', numeroMoeda(vpl2026));
 
-    // Calcular 2027
-        // Calcular ll2027
-    if (!crescimentoAlterado[2027]) {
-        document.getElementById('crescimento-2027').value = valorParaPorcentagem(crescimentoEsperado); // se a taxa de crescimento de 2027 não tiver sido alterada pelo usuário, atribui o valor da taxa de crescimento esperada ao input da taxa de crescimento de 2027
-    }
-    const crescimento2027 = limparFormatacao('crescimento-2027'); // estou pegando o id do input da taxa de crescimento de 2027 e armazenando na variável crescimento2027
-    const ll2027 = ll2026 * (1 + (crescimento2027 / 100)); // estou calculando o lucro líquido de 2027 com base no lucro líquido de 2026 e na taxa de crescimento esperada
-    document.getElementById('ll-2027').value = valorParaMoeda(ll2027); // estou pegando o id do input do lucro líquido de 2027 e atribuindo o valor do lucro líquido calculado, formatado com 2 casas decimais, resultado aparece automaticamente no input do lucro líquido de 2027
+    const crescimento2026 = ((ll2026 - ll2025) / ll2025) * 100;
+    definirValor('crescimento-2026', numeroPorcentagem(crescimento2026));
 
-        // Calcular VPL de 2027
-    const vpl2027 = ll2027 / Math.pow(1 + (taxaDesconto / 100), 2); // estou calculando o VPL de 2027
-    document.getElementById('vpl-2027').value = valorParaMoeda(vpl2027); // estou pegando o id do input do VPL de 2027 e atribuindo o valor do VPL calculado, formatado com 2 casas decimais, resultado aparece automaticamente no input do VPL de 2027
+    // Projeção dos Anos Seguintes
+    const anosProjetados = quantidadeAnos === 3 ? [2027, 2028] : [2027, 2028, 2029, 2030];
+    let llAnterior = ll2026;
+    let somaVpl = vpl2026;
 
-    // Calcular 2028
-        // Calcular ll2028
-    if (!crescimentoAlterado[2028]) {
-        document.getElementById('crescimento-2028').value = valorParaPorcentagem(crescimentoEsperado); 
-    }
-    const crescimento2028 = limparFormatacao('crescimento-2028');
-    const ll2028 = ll2027 * (1 + (crescimento2028 / 100));
-    document.getElementById('ll-2028').value = valorParaMoeda(ll2028); 
+    anosProjetados.forEach((ano, posicao) => {
+        const expoenteTempo = posicao + 2;
 
-        // Calcular VPL de 2028
-    const vpl2028 = ll2028 / Math.pow(1 + (taxaDesconto / 100), 3);
-    document.getElementById('vpl-2028').value = valorParaMoeda(vpl2028); 
+        // Se o usuario alterar o valor, faz os calculos a partir deste número
+        if (!crescimentoAlterado[ano]) {
+            definirValor(`crescimento-${ano}`, numeroPorcentagem(crescimentoEsperado));
+        }
 
-    // Calcular perpétuo
-        // Calcular ll perpétuo
+        const crescimento = limparFormatacao(`crescimento-${ano}`);
+        const llAno = llAnterior * (1 + (crescimento / 100));
+        definirValor(`ll-${ano}`, numeroMoeda(llAno));
+
+        const vplAno = llAno / Math.pow(1 + (taxaDesconto / 100), expoenteTempo);
+        definirValor(`vpl-${ano}`, numeroMoeda(vplAno));
+
+        llAnterior = llAno; 
+        somaVpl += vplAno;
+    });
+
+    // Cálculo do Perpétuo
+    // Se o usuario alterar o valor, faça os calculos a partir deste número
     if (!crescimentoAlterado['perpetuo']) {
-        document.getElementById('crescimento-perpetuo').value = valorParaPorcentagem(3);
+        definirValor('crescimento-perpetuo', numeroPorcentagem(3));
     }
     const crescimentoPerpetuo = limparFormatacao('crescimento-perpetuo');
-    const llPerpetuo = ll2028 * (1 + (crescimentoPerpetuo / 100)) / ((taxaDesconto / 100) - (crescimentoPerpetuo / 100));
-    document.getElementById('ll-perpetuo').value = valorParaMoeda(llPerpetuo);
+    const llPerpetuo = llAnterior * (1 + (crescimentoPerpetuo / 100)) / ((taxaDesconto / 100) - (crescimentoPerpetuo / 100));
+    definirValor('ll-perpetuo', numeroMoeda(llPerpetuo));
 
-        // Calcular VPL perpétuo
-    const vplPerpetuo = llPerpetuo / Math.pow(1 + (taxaDesconto / 100), 4); // CONSERTAR ESSE VALOR PARA DEIXAR 3% PADRAO E SE O USUARIO QUISER ALTERAR, FIQUE A VONTADE
-    document.getElementById('vpl-perpetuo').value = valorParaMoeda(vplPerpetuo);
+    const expoentePerpetuo = quantidadeAnos === 3 ? 4 : 6;
+    const vplPerpetuo = llPerpetuo / Math.pow(1 + (taxaDesconto / 100), expoentePerpetuo);
+    definirValor('vpl-perpetuo', numeroMoeda(vplPerpetuo));
 
-    // Preço acão
-    const precoAcao = limparFormatacao('preco-acao');
-    document.getElementById('card-preco-acao').value = valorParaMoeda(precoAcao);
+    somaVpl += vplPerpetuo;
 
-    // Market Cap
-    const marketCap = vpl2026 + vpl2027 + vpl2028 + vplPerpetuo;
-    document.getElementById('card-market-cap').value = valorParaMoeda(marketCap);
+    // Atualização cards
+    const precoTeto = somaVpl / tesouraria;
+    const margemSeguranca = ((precoTeto - precoAcao) / precoAcao) * 100;
 
-    // Preço teto
-    const tesouraria = limparFormatacao('ex-tesouraria');
-    const precoTeto = (vpl2026 + vpl2027 + vpl2028 + vplPerpetuo) / tesouraria;
-    document.getElementById('card-preco-por-acao').value = valorParaMoeda(precoTeto);
-
-    // Margem de segurança
-    const margemSeguranca = (precoTeto - precoAcao) / precoAcao * 100;
-    document.getElementById('card-margem-seguranca').value = valorParaPorcentagem(margemSeguranca);
-
-    if(quantidadeAnos === 5){
-        // Calcular 2029
-            // Calcular ll2029
-        if (!crescimentoAlterado[2029]) {
-            document.getElementById('crescimento-2029').value = valorParaPorcentagem(crescimentoEsperado); 
-        }
-        const crescimento2029 = limparFormatacao('crescimento-2029');
-        const ll2029 = ll2028 * (1 + (crescimento2029 / 100));
-        document.getElementById('ll-2029').value = valorParaMoeda(ll2029); 
-    
-            // Calcular VPL de 2029
-        const vpl2029 = ll2029 / Math.pow(1 + (taxaDesconto / 100), 4);
-        document.getElementById('vpl-2029').value = valorParaMoeda(vpl2029); 
-    
-        // Calcular 2030
-            // Calcular ll2030
-        if (!crescimentoAlterado[2030]) {
-            document.getElementById('crescimento-2030').value = valorParaPorcentagem(crescimentoEsperado); 
-        }
-        const crescimento2030 = limparFormatacao('crescimento-2030');
-        const ll2030 = ll2029 * (1 + (crescimento2030 / 100));
-        document.getElementById('ll-2030').value = valorParaMoeda(ll2030); 
-    
-            // Calcular VPL de 2030
-        const vpl2030 = ll2030 / Math.pow(1 + (taxaDesconto / 100), 5);
-        document.getElementById('vpl-2030').value = valorParaMoeda(vpl2030); 
-    
-        // Calcular perpétuo
-            // Calcular ll perpétuo
-        if (!crescimentoAlterado['perpetuo']) {
-            document.getElementById('crescimento-perpetuo').value = valorParaPorcentagem(3);
-        }
-        const crescimentoPerpetuo = limparFormatacao('crescimento-perpetuo');
-        const llPerpetuo = ll2030 * (1 + (crescimentoPerpetuo / 100)) / ((taxaDesconto / 100) - (crescimentoPerpetuo / 100));
-        document.getElementById('ll-perpetuo').value = valorParaMoeda(llPerpetuo);
-    
-            // Calcular VPL perpétuo
-        const vplPerpetuo = llPerpetuo / Math.pow(1 + (taxaDesconto / 100), 6); // CONSERTAR ESSE VALOR PARA DEIXAR 3% PADRAO E SE O USUARIO QUISER ALTERAR, FIQUE A VONTADE
-        document.getElementById('vpl-perpetuo').value = valorParaMoeda(vplPerpetuo);
-
-        // Preço acão
-        const precoAcao = limparFormatacao('preco-acao');
-        document.getElementById('card-preco-acao').value = valorParaMoeda(precoAcao);
-
-        // Market Cap
-        const marketCap = vpl2026 + vpl2027 + vpl2028 + vpl2029 + vpl2030 + vplPerpetuo;
-        document.getElementById('card-market-cap').value = valorParaMoeda(marketCap);
-
-        // Preço teto
-        const tesouraria = limparFormatacao('ex-tesouraria');
-        const precoTeto = (vpl2026 + vpl2027 + vpl2028 + vpl2029 + vpl2030 + vplPerpetuo) / tesouraria;
-        document.getElementById('card-preco-por-acao').value = valorParaMoeda(precoTeto);
-
-        // Margem de segurança
-        const margemSeguranca = (precoTeto - precoAcao) / precoAcao * 100;
-        document.getElementById('card-margem-seguranca').value = valorParaPorcentagem(margemSeguranca);
-
-    }
-
+    definirValor('card-preco-acao', numeroMoeda(precoAcao));
+    definirValor('card-market-cap', numeroMoeda(somaVpl));
+    definirValor('card-preco-por-acao', numeroMoeda(precoTeto));
+    definirValor('card-margem-seguranca', numeroPorcentagem(margemSeguranca));
 }
 
-const projecaoBt5 = document.querySelector('.projecao-5');
-projecaoBt5.addEventListener('click', () => {
-    if(document.getElementById('ll-2030')){
-        return; // Se o elemento ll-2030 já existir, significa que a projeção de 5 anos já foi adicionada, então não faz nada.
-    } else {
-        const anosExtras = InnerHTML = `
-            <tr>
-                <td>2029</td>
-                <td data-label="Lucro líquido">
-                    <div class="campo-input">
-                        <input type="text" id="ll-2029" disabled oninput="calcular()" onblur="formatarMoeda('ll-2029')">
-                    </div>
-                </td>
-                <td data-label="Crescimento">
-                    <div class="campo-input-crescimento editavel">
-                        <input type="text" id="crescimento-2029" onfocus="limparCampo('crescimento-2029')" oninput="calcular()" onblur="formatarPorcentagem('crescimento-2029')">
-                    </div>
-                </td>
-                <td data-label="VPL">
-                    <input type="text" id="vpl-2029" disabled oninput="calcular()" onblur="formatarMoeda('vpl-2029')">
-                </td>
-            </tr>
-    
-            <tr>
-                <td>2030</td>
-                <td data-label="Lucro líquido">
-                    <div class="campo-input">
-                        <input type="text" id="ll-2030" disabled oninput="calcular()" onblur="formatarMoeda('ll-2030')">
-                    </div>
-                </td>
-                <td data-label="Crescimento">
-                    <div class="campo-input-crescimento editavel">
-                        <input type="text" id="crescimento-2030" onfocus="limparCampo('crescimento-2030')" oninput="calcular()" onblur="formatarPorcentagem('crescimento-2030')">
-                    </div>
-                </td>
-                <td data-label="VPL">
-                    <input type="text" id="vpl-2030" disabled oninput="calcular()" onblur="formatarMoeda('vpl-2030')">
-                </td>
-            </tr>
-        `;
-        // Injeta antes do perpétuo
-        perpetuo.insertAdjacentHTML('beforebegin', anosExtras);
-        quantidadeAnos = 5;
-        calcular();
+// EVENT LISTENERS
+// -------------------------------
+
+// Monitoramento de alterações manuais nas taxas de crescimento
+const mapeamentoInputs = {
+    'crescimento-2027': 2027,
+    'crescimento-2028': 2028,
+    'crescimento-2029': 2029,
+    'crescimento-2030': 2030,
+    'crescimento-perpetuo': 'perpetuo'
+};
+
+// Altera os valores de crescimento esperado de false para true
+for (let idDoCampo in mapeamentoInputs) {
+    let elemento = document.getElementById(idDoCampo);
+
+    if (elemento) {
+        elemento.oninput = function() {
+            let anoCorrespondente = mapeamentoInputs[idDoCampo]; 
+            
+            // Marca esse ano específico como alterado pelo usuário
+            crescimentoAlterado[anoCorrespondente] = true; 
+            
+            // Recalcula o Valuation
+            calcular();                        
+        };
     }
+}
+
+// Projeção de 5 Anos
+document.querySelector('.projecao-5').addEventListener('click', () => {
+    if (document.getElementById('ll-2030')) return;
+
+    const anosExtras = `
+        <tr>
+            <td>2029</td>
+            <td data-label="Lucro líquido">
+                <div class="campo-input">
+                    <input type="text" id="ll-2029" disabled oninput="calcular()" onblur="formatarMoeda('ll-2029')">
+                </div>
+            </td>
+            <td data-label="Crescimento">
+                <div class="campo-input-crescimento editavel">
+                    <input type="text" id="crescimento-2029" onfocus="limparCampo('crescimento-2029')" oninput="calcular()" onblur="formatarPorcentagem('crescimento-2029')">
+                </div>
+            </td>
+            <td data-label="VPL">
+                <input type="text" id="vpl-2029" disabled oninput="calcular()" onblur="formatarMoeda('vpl-2029')">
+            </td>
+        </tr>
+        <tr>
+            <td>2030</td>
+            <td data-label="Lucro líquido">
+                <div class="campo-input">
+                    <input type="text" id="ll-2030" disabled oninput="calcular()" onblur="formatarMoeda('ll-2030')">
+                </div>
+            </td>
+            <td data-label="Crescimento">
+                <div class="campo-input-crescimento editavel">
+                    <input type="text" id="crescimento-2030" onfocus="limparCampo('crescimento-2030')" oninput="calcular()" onblur="formatarPorcentagem('crescimento-2030')">
+                </div>
+            </td>
+            <td data-label="VPL">
+                <input type="text" id="vpl-2030" disabled oninput="calcular()" onblur="formatarMoeda('vpl-2030')">
+            </td>
+        </tr>
+    `;
+
+    // Procura o elemento perpetuo na tabela
+    const elementoLinhaPerpetuo = document.getElementById('perpetuo')
+
+    // Se a linha do perpétuo existir na tela:
+    if (elementoLinhaPerpetuo) {
+        elementoLinhaPerpetuo.insertAdjacentHTML('beforebegin', anosExtras);
+    }
+
+    // Uma lista com os novos anos que acabaram de ser criados
+    const novosAnosInjetados = [2029, 2030];
+
+    // Configurando o ouvinte de digitação para cada um desses novos anos
+    novosAnosInjetados.forEach(function(anoFuturo) {
+        const campoDeInput = document.getElementById(`crescimento-${anoFuturo}`);
+
+        // Só configura se o campo realmente foi encontrado no HTML
+        if (campoDeInput) {
+            campoDeInput.oninput = function() {
+                crescimentoAlterado[anoFuturo] = true;
+                calcular();
+            };
+        }
+    });
+
+    quantidadeAnos = 5;
+    calcular();
+
     document.querySelector('.projecao-3').classList.remove('active');
     document.querySelector('.projecao-5').classList.add('active');
 });
 
-const projecaoBT3 = document.querySelector('.projecao-3');
-projecaoBT3.addEventListener('click', () => {
+// Projeção de 3 anos
+document.querySelector('.projecao-3').addEventListener('click', () => {
     quantidadeAnos = 3;
-    // Remove os elementos de 2029 e 2030 se existirem
-    const ll2029 = document.getElementById('ll-2029');
-    const ll2030 = document.getElementById('ll-2030');
-    if (ll2029) ll2029.closest('tr').remove();
-    if (ll2030) ll2030.closest('tr').remove();
+
+    // Removendo os campos 2029 e 2030
+    const camposRemover = ['ll-2029', 'll-2030'];
+    camposRemover.forEach(id => {
+        const elemento = document.getElementById(id);
+        if (elemento) elemento.closest('tr').remove();
+    });
+    
+    crescimentoAlterado[2029] = false;
+    crescimentoAlterado[2030] = false;
     calcular();
 
     document.querySelector('.projecao-5').classList.remove('active');
     document.querySelector('.projecao-3').classList.add('active');
 });
+
+// Configuração Inicial ao carregar a página
+window.onload = function() {
+    definirValor('payout', numeroPorcentagem(0));
+    definirValor('taxa-desconto', numeroPorcentagem(0));
+    definirValor('roe', numeroPorcentagem(0));
+    definirValor('crescimento-esperado', numeroPorcentagem(0));
+    definirValor('ex-tesouraria', numeroFormatado(0));
+    definirValor('patrimonio-liquido', numeroMoeda(0));
+    definirValor('preco-acao', numeroMoeda(0));
+    definirValor('ll-2025', numeroMoeda(0));
+    definirValor('ll-2026', numeroMoeda(0));
+    definirValor('crescimento-2026', numeroPorcentagem(0));
+    definirValor('crescimento-2027', numeroPorcentagem(0));
+    definirValor('crescimento-2028', numeroPorcentagem(0));
+    definirValor('crescimento-perpetuo', numeroPorcentagem(3));
+
+    calcular();
+};
 
 function reset() {
     location.reload();
