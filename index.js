@@ -1,7 +1,9 @@
 let quantidadeAnos = 3;
 
 // Controla se o usuário alterou manualmente as taxas de crescimento
-const crescimentoAlterado = {
+const alteradoManualmente = {
+    roe: false,
+    crescimentoEsperado: false,
     2027: false,
     2028: false,
     2029: false,
@@ -110,11 +112,22 @@ function calcular() {
     const ll2026 = limparFormatacao('ll-2026');
 
     // Calculo do ROE e Crescimento Esperado
-    const roe = (ll2025 / patrimonioLiquido) * 100;
-    definirValor('roe', numeroPorcentagem(roe));
+    let roe;
+    if(!alteradoManualmente.roe){
+        roe = (ll2025 / patrimonioLiquido) * 100;
+        definirValor('roe', numeroPorcentagem(roe));
+    }else{
+        roe = limparFormatacao('roe');
+    }
 
-    const crescimentoEsperado = (roe / 100) * (1 - (payout / 100)) * 100;
-    definirValor('crescimento-esperado', numeroPorcentagem(crescimentoEsperado));
+    let crescimentoEsperado;
+    if(!alteradoManualmente.crescimentoEsperado){
+        crescimentoEsperado = (roe / 100) * (1 - (payout / 100)) * 100;
+        definirValor('crescimento-esperado', numeroPorcentagem(crescimentoEsperado));
+    }else{
+        crescimentoEsperado = limparFormatacao('crescimento-esperado');
+    }
+
 
     // Projeção 2026
     const vpl2026 = ll2026 / Math.pow(1 + (taxaDesconto / 100), 1);
@@ -132,7 +145,7 @@ function calcular() {
         const expoenteTempo = posicao + 2;
 
         // Se o usuario alterar o valor, faz os calculos a partir deste número
-        if (!crescimentoAlterado[ano]) {
+        if (!alteradoManualmente[ano]) {
             definirValor(`crescimento-${ano}`, numeroPorcentagem(crescimentoEsperado));
         }
 
@@ -149,7 +162,7 @@ function calcular() {
 
     // Cálculo do Perpétuo
     // Se o usuario alterar o valor, faça os calculos a partir deste número
-    if (!crescimentoAlterado['perpetuo']) {
+    if (!alteradoManualmente['perpetuo']) {
         definirValor('crescimento-perpetuo', numeroPorcentagem(3));
     }
     const crescimentoPerpetuo = limparFormatacao('crescimento-perpetuo');
@@ -177,6 +190,8 @@ function calcular() {
 
 // Monitoramento de alterações manuais nas taxas de crescimento
 const mapeamentoInputs = {
+    'roe': 'roe',
+    'crescimento-esperado': 'crescimentoEsperado',
     'crescimento-2027': 2027,
     'crescimento-2028': 2028,
     'crescimento-2029': 2029,
@@ -190,10 +205,10 @@ for (let idDoCampo in mapeamentoInputs) {
 
     if (elemento) {
         elemento.oninput = function() {
-            let anoCorrespondente = mapeamentoInputs[idDoCampo]; 
+            let alterarValor = mapeamentoInputs[idDoCampo]; 
             
             // Marca esse ano específico como alterado pelo usuário
-            crescimentoAlterado[anoCorrespondente] = true; 
+            alteradoManualmente[alterarValor] = true; 
             
             // Recalcula o Valuation
             calcular();                        
@@ -258,7 +273,7 @@ document.querySelector('.projecao-5').addEventListener('click', () => {
         // Só configura se o campo realmente foi encontrado no HTML
         if (campoDeInput) {
             campoDeInput.oninput = function() {
-                crescimentoAlterado[anoFuturo] = true;
+                alteradoManualmente[anoFuturo] = true;
                 calcular();
             };
         }
@@ -282,8 +297,8 @@ document.querySelector('.projecao-3').addEventListener('click', () => {
         if (elemento) elemento.closest('tr').remove();
     });
     
-    crescimentoAlterado[2029] = false;
-    crescimentoAlterado[2030] = false;
+    alteradoManualmente[2029] = false;
+    alteradoManualmente[2030] = false;
     calcular();
 
     document.querySelector('.projecao-5').classList.remove('active');
