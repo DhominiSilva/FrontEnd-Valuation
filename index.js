@@ -169,8 +169,9 @@ function calcular() {
     const llPerpetuo = llAnterior * (1 + (crescimentoPerpetuo / 100)) / ((taxaDesconto / 100) - (crescimentoPerpetuo / 100));
     definirValor('ll-perpetuo', numeroMoeda(llPerpetuo));
 
-    const expoentePerpetuo = quantidadeAnos === 3 ? 4 : 6;
-    const vplPerpetuo = llPerpetuo / Math.pow(1 + (taxaDesconto / 100), expoentePerpetuo);
+    const expoentePerpetuo = quantidadeAnos === 3 ? 3 : 5;
+    const taxaDescontoPerpetuo = 10 / 100;
+    const vplPerpetuo = llPerpetuo / Math.pow(1 + taxaDescontoPerpetuo, expoentePerpetuo);
     definirValor('vpl-perpetuo', numeroMoeda(vplPerpetuo));
 
     somaVpl += vplPerpetuo;
