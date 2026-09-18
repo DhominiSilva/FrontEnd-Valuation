@@ -306,8 +306,7 @@ document.querySelector('.projecao-3').addEventListener('click', () => {
     document.querySelector('.projecao-3').classList.add('active');
 });
 
-// Configuração Inicial ao carregar a página
-window.onload = function() {
+function reset() {
     definirValor('payout', numeroPorcentagem(0));
     definirValor('taxa-desconto', numeroPorcentagem(0));
     definirValor('roe', numeroPorcentagem(0));
@@ -321,10 +320,12 @@ window.onload = function() {
     definirValor('crescimento-2027', numeroPorcentagem(0));
     definirValor('crescimento-2028', numeroPorcentagem(0));
     definirValor('crescimento-perpetuo', numeroPorcentagem(3));
+    definirValor('texto-anotacoes', "");
 
     calcular();
 };
 
-function reset() {
-    location.reload();
+// Configuração Inicial ao carregar a página
+window.onload = function() {
+    reset();
 }
