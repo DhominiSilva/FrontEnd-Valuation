@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Preço teto</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="../css/index.css">
 
 </head>
 <body>
 
     <div id="cabecalho">
         <picture>
-            <source media="(max-width: 768px)" srcset="img/icon-banner-mobile.png">
-            <img src="img/icon-banner-desktop.png" alt="FCD | Valuation de Fluxo de Caixa">
+            <source media="(max-width: 768px)" srcset="../img/icon-banner-mobile.png">
+            <img src="../img/icon-banner-desktop.png" alt="FCD | Valuation de Fluxo de Caixa">
         </picture>
     </div>
     <div id="container">
@@ -21,7 +21,7 @@
                 <div id="premissas">
 
                     <div class="titulo-esquerda">
-                        <img src="img/icon_premissas.png" alt="Calculadora" class="imagem-titulo">
+                        <img src="../img/icon_premissas.png" alt="Calculadora" class="imagem-titulo">
                         <h2>Premissas</h2> 
                     </div>
                     
@@ -58,7 +58,7 @@
                 <div id="projecao">
 
                     <div class="titulo-esquerda">
-                        <img src="img/icon_realidade_projetada.png" alt="Grafico de coluna" class="imagem-titulo">
+                        <img src="../img/icon_realidade_projetada.png" alt="Grafico de coluna" class="imagem-titulo">
                         <h2>Realidade projetada</h2>
                     </div>
                     
@@ -95,7 +95,7 @@
                 
                     
                 <div class="titulo-direita">
-                    <img src="img/icon_fluxo_caixa.png" alt="Gráfico de linha" class="imagem-titulo">
+                    <img src="../img/icon_fluxo_caixa.png" alt="Gráfico de linha" class="imagem-titulo">
                     <h2>Fluxo de Caixa Descontado</h2>
                     <div class="botoes-anos">
                         <button class="projecao-3 active">3 anos</button>
@@ -200,7 +200,7 @@
 
                         <div class="campo-linha-mobile">
                             <div class="campo-fcd">
-                                <img src="img/icon-preco-atual.png" alt="calculadora" style="width: 40px; height: 40px; margin-right: 5px;">
+                                <img src="../img/icon-preco-atual.png" alt="calculadora" style="width: 40px; height: 40px; margin-right: 5px;">
                                 <label>Preço da ação</label>
                                 <div class="campo-input">
                                     <input type="text" id="card-preco-acao" oninput="calcular()" onblur="formatarMoeda('preco-acao')" disabled>
@@ -208,7 +208,7 @@
                             </div>
     
                             <div class="campo-fcd">
-                                <img src="img/icon-preco-teto.png" alt="calculadora" style="width: 40px; height: 40px; margin-right: 5px;"> 
+                                <img src="../img/icon-preco-teto.png" alt="calculadora" style="width: 40px; height: 40px; margin-right: 5px;"> 
                                 <label>Preço teto</label>
                                 <div class="campo-input">
                                     <input type="text" id="card-preco-por-acao" disabled oninput="calcular()" onblur="formatarMoeda('preco-por-acao')">
@@ -218,7 +218,7 @@
 
                         <div class="campo-linha-mobile">
                             <div class="campo-fcd">
-                                <img src="img/icon-margem-seguranca.png" alt="calculadora" style="width: 40px; height: 40px; margin-right: 5px;">
+                                <img src="../img/icon-margem-seguranca.png" alt="calculadora" style="width: 40px; height: 40px; margin-right: 5px;">
                                 <label>Margem de segurança</label>
                                 <div class="campo-input">
                                     <input type="text" id="card-margem-seguranca" disabled oninput="calcular()" onblur="formatarPorcentagem('margem-seguranca')">
@@ -226,7 +226,7 @@
                             </div>
                             
                             <div class="campo-fcd">
-                                <img src="img/icon-market-cap.png" alt="calculadora" style="width: 40px; height: 40px; margin-right: 5px;">
+                                <img src="../img/icon-market-cap.png" alt="calculadora" style="width: 40px; height: 40px; margin-right: 5px;">
                                 <label>Market cap</label>
                                 <div class="campo-input">
                                     <input type="text" id="card-market-cap" disabled oninput="calcular()" onblur="formatarMoeda('market-cap')">
@@ -242,7 +242,7 @@
 
         <div id="anotacoes">
             <div class="titulo-anotacao">
-                <img src="img/icon_anotacoes.png" alt="Anotação" class="imagem-titulo">
+                <img src="../img/icon_anotacoes.png" alt="Anotação" class="imagem-titulo">
                 <h2>Anotações</h2>
             </div>
             <textarea id="texto-anotacoes" placeholder="Escreva suas observações aqui... (salva junto com o preço teto)"></textarea>
@@ -254,8 +254,8 @@
         <p>Desenvolvido por Dhomini Silva</p>
     </footer>
     
-    <script src="index.js"></script>
-    <script src="api.js"></script>
-    <script src="main.js"></script>
+    <script src="../js/index.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 </html>
