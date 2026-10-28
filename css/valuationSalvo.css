@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0%;
     box-sizing: border-box;
+    font-weight: 600;
 }
 
 :root{
@@ -60,15 +61,53 @@ th{
     color: var(--cor-fonte-titulo);
 }
 
-#conteudo p{
+th:nth-child(1){ width: 20%; }  /* Ticker */
+th:nth-child(2){ width: 14%; }  /* Preço */
+th:nth-child(3){ width: 14%; }  /* Preço teto */
+th:nth-child(4){ width: 14%; }  /* Projeção */
+th:nth-child(5){ width: 14%; }  /* Upside */
+th:nth-child(6){ width: 14%; }  /* Salvo em */
+th:nth-child(7){ width: 10%; }  /* Save/Delete */
+
+.mensagem-vazia{
     font-size: 1.2rem;
     font-weight: 900;
     color: var(--cor-fonte-titulo);
-    text-align: center;
     margin: 2rem;
 }
 
+tbody tr{
+    border-bottom: 2px solid rgb(139, 169, 157);
+    height: 3rem;
+}
 
+td{
+    padding: 0.5rem;
+    text-align: center;
+    color: var(--cor-fonte);
+}
+
+input{
+    border-radius: var(--borda-input);
+    border: none;
+    outline: none;
+    background-color: transparent;
+    padding: 0.25rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.editavel{
+    background-color: rgb(139, 169, 157);
+}
+
+.upside-positivo{
+    color: rgb(57, 238, 57);
+}
+
+.upside-negativo{
+    color: rgb(143, 1, 1);
+}
 
 footer{
     text-align: center;

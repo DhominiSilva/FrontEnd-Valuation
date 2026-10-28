@@ -16,14 +16,14 @@ const api = {
 
     // Listar
     async listar(){
-        const resposta =await fetch(`${API_BASE_URL}/v1/save`);
+        const resposta =await fetch(`${API_BASE_URL}/v1/list`);
         if (!resposta.ok) { throw new Error(`Erro ao listar os dados ${resposta.status}`); }
         return resposta.json();
     },
 
     async delete(id){
         try{
-            const response = await fetch(`${API_BASE_URL}/v1/save/${id}`, {
+            const response = await fetch(`${API_BASE_URL}/v1/list/${id}`, {
                 method: 'DELETE',
             });
             if (!response.ok) { throw new Error(`Erro ao excluir os dados ${response.status}`); }
@@ -36,4 +36,4 @@ const api = {
 
 }
 
-export default api;
+window.api = api;
