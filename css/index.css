@@ -59,6 +59,18 @@ body{
     border-radius: var(--borda-total);
 }
 
+#ticker{ /* Deixando o input do ticker com letras maiusculas */
+    text-transform: uppercase;
+}
+
+#ticker::placeholder{
+    color: rgb(102, 102, 102);
+}
+
+#ticker:focus::placeholder{
+    color: transparent;
+}
+
 #projecao{
     display: flex;
     flex-direction: column;

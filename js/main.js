@@ -1,5 +1,6 @@
 document.querySelector(".salvar-preco").addEventListener("click", async () => {
     const dados = {
+        ticker: document.getElementById('ticker').value,
         payoutMedio: limparFormatacao('payout'),
         taxaDesconto: limparFormatacao('taxa-desconto'),
         roe: limparFormatacao('roe'),

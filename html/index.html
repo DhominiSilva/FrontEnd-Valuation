@@ -26,6 +26,13 @@
                     </div>
                     
                     <div class="campo">
+                        <label>Ticker</label>
+                        <div class="campo-input-premissas editavel">
+                            <input type="text" id="ticker" maxlength="6" placeholder = "PETR4">
+                        </div> 
+                    </div>
+
+                    <div class="campo">
                         <label>Payout médio(%)</label>
                         <div class="campo-input-premissas editavel">
                             <input type="text" id="payout" onfocus="limparCampo('payout')" oninput="calcular()" onblur="formatarPorcentagem('payout')">

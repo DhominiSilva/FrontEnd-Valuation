@@ -307,6 +307,7 @@ document.querySelector('.projecao-3').addEventListener('click', () => {
 });
 
 function reset() {
+    definirValor('ticker', "");
     definirValor('payout', numeroPorcentagem(0));
     definirValor('taxa-desconto', numeroPorcentagem(0));
     definirValor('roe', numeroPorcentagem(0));
